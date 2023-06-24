@@ -1,0 +1,10 @@
+{
+  "shared": {
+    "required": "此字段为必填项",
+    "email": "邮箱格式不正确",
+    "email.unique": "邮箱已被占用",
+    "password.minLength": "密码长度不能少于 { minLength } 个字符",
+    "passwordConfirm.confirmed": "密码不匹配",
+    "username.unique": "用户名已被占用"
+  }
+}

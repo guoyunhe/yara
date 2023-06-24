@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  mariadb:
+    image: mariadb
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MARIADB_ROOT_PASSWORD: secret
+      MARIADB_DATABASE: lucid
+      MARIADB_USER: lucid
+      MARIADB_PASSWORD: secret

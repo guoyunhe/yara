@@ -1,0 +1,11 @@
+node_modules
+build
+coverage
+storage
+.DS_STORE
+.env
+tmp
+
+package-lock.json
+pnpm-lock.yaml
+yarn.lock

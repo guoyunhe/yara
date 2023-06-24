@@ -1,0 +1,10 @@
+{
+  "shared": {
+    "required": "The field is required",
+    "email": "Not a valid email address",
+    "email.unique": "The email is already in use",
+    "password.minLength": "Password must have { minLength } characters or more",
+    "passwordConfirm.confirmed": "Passwords don't match",
+    "username.unique": "The username is already in use"
+  }
+}

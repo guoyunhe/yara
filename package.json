@@ -1,0 +1,58 @@
+{
+  "private": true,
+  "scripts": {
+    "dev": "node ace serve --watch",
+    "test": "node ace test",
+    "build": "node ace build --production",
+    "start": "node build/server.js",
+    "lint": "eslint . --ext=.ts",
+    "format": "prettier --write ."
+  },
+  "eslintConfig": {
+    "extends": [
+      "plugin:adonis/typescriptApp",
+      "prettier"
+    ]
+  },
+  "eslintIgnore": [
+    "build"
+  ],
+  "prettier": {
+    "printWidth": 100
+  },
+  "devDependencies": {
+    "@adonisjs/assembler": "^5.9.5",
+    "@japa/core": "^7.3.3",
+    "@japa/preset-adonis": "^1.2.0",
+    "@japa/runner": "^2.5.1",
+    "@types/luxon": "^3.3.0",
+    "@types/proxy-addr": "^2.0.0",
+    "@types/source-map-support": "^0.5.6",
+    "eslint": "^8.41.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-adonis": "^2.1.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "pino-pretty": "^10.0.0",
+    "prettier": "^2.8.8",
+    "typescript": "^5.0.4",
+    "youch": "^3.2.3",
+    "youch-terminal": "^2.2.0"
+  },
+  "dependencies": {
+    "@adonisjs/auth": "^8.2.3",
+    "@adonisjs/core": "^5.9.0",
+    "@adonisjs/i18n": "^1.5.6",
+    "@adonisjs/lucid": "^18.4.0",
+    "@adonisjs/repl": "^3.1.11",
+    "image-size": "^1.0.2",
+    "luxon": "^3.3.0",
+    "mysql2": "^2.3.3",
+    "nanoid": "^3.3.6",
+    "openapi-types": "^12.1.1",
+    "proxy-addr": "^2.0.7",
+    "reflect-metadata": "^0.1.13",
+    "sharp": "^0.32.1",
+    "source-map-support": "^0.5.21",
+    "tmp-promise": "^3.0.3"
+  }
+}
