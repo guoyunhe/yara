@@ -1,12 +1,17 @@
 import Hash from '@ioc:Adonis/Core/Hash';
-import { BelongsTo, beforeSave, belongsTo, column } from '@ioc:Adonis/Lucid/Orm';
+import {
+  BelongsTo,
+  ManyToMany,
+  beforeSave,
+  belongsTo,
+  column,
+  manyToMany,
+} from '@ioc:Adonis/Lucid/Orm';
 import Image from './Image';
 import Model from './Model';
+import Tag from './Tag';
 
 export default class User extends Model {
-  @belongsTo(() => Image, { foreignKey: 'avatarId' })
-  public avatar: BelongsTo<typeof Image>;
-
   @column()
   public avatarId: number | null;
 
@@ -30,6 +35,14 @@ export default class User extends Model {
 
   @column()
   public locale: string | null;
+
+  @belongsTo(() => Image, { foreignKey: 'avatarId' })
+  public avatar: BelongsTo<typeof Image>;
+
+  @manyToMany(() => Tag, {
+    pivotTable: 'user_tags',
+  })
+  public tags: ManyToMany<typeof Tag>;
 
   @beforeSave()
   public static async hashPassword(user: User) {

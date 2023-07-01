@@ -2,6 +2,7 @@ import { BelongsTo, ManyToMany, belongsTo, column, manyToMany } from '@ioc:Adoni
 import Image from './Image';
 import Model from './Model';
 import Post from './Post';
+import User from './User';
 
 export default class Tag extends Model {
   @column()
@@ -11,10 +12,7 @@ export default class Tag extends Model {
   public slug: string;
 
   @column()
-  public title: string;
-
-  @column()
-  public content: string;
+  public name: string;
 
   @belongsTo(() => Image, { foreignKey: 'iconId' })
   public icon: BelongsTo<typeof Image>;
@@ -23,4 +21,9 @@ export default class Tag extends Model {
     pivotTable: 'post_tags',
   })
   public posts: ManyToMany<typeof Post>;
+
+  @manyToMany(() => User, {
+    pivotTable: 'user_tags',
+  })
+  public users: ManyToMany<typeof User>;
 }
