@@ -1,14 +1,17 @@
 import Hash from '@ioc:Adonis/Core/Hash';
 import {
   BelongsTo,
+  HasMany,
   ManyToMany,
   beforeSave,
   belongsTo,
   column,
+  hasMany,
   manyToMany,
 } from '@ioc:Adonis/Lucid/Orm';
 import Image from './Image';
 import Model from './Model';
+import Post from './Post';
 import Tag from './Tag';
 
 export default class User extends Model {
@@ -38,6 +41,9 @@ export default class User extends Model {
 
   @belongsTo(() => Image, { foreignKey: 'avatarId' })
   public avatar: BelongsTo<typeof Image>;
+
+  @hasMany(() => Post)
+  public posts: HasMany<typeof Post>;
 
   @manyToMany(() => Tag, {
     pivotTable: 'user_tags',
