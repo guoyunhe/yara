@@ -2,7 +2,7 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import { rules, schema } from '@ioc:Adonis/Core/Validator';
 import User from 'App/Models/User';
 
-export default class AdminUsersController {
+export default class UsersController {
   public async index({ request }: HttpContextContract) {
     const {
       role,

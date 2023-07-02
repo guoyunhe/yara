@@ -39,9 +39,12 @@ Route.resource('/images', 'ImagesController')
 Route.resource('/tags', 'TagsController').only(['index', 'show']);
 
 Route.group(() => {
-  Route.resource('/users', 'AdminUsersController').apiOnly();
+  Route.resource('/tags', 'TagsController').apiOnly();
+  Route.resource('/users', 'UsersController').apiOnly();
 })
   .prefix('/admin')
+  .as('admin')
+  .namespace('App/Controllers/Http/Admin')
   .middleware(['auth', 'admin']);
 
 Route.get('/', async ({ i18n }) => {
