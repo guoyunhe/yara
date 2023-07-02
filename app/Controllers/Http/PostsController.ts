@@ -53,14 +53,14 @@ export default class PostsController {
 
     if (tagId) {
       query = query.whereHas('tags', (q) => {
-        q.where('id', tagId);
+        q.where('tags.id', tagId);
       });
     }
 
     if (tagIds) {
       tagIds.forEach((id) => {
         query = query.whereHas('tags', (q) => {
-          q.where('id', id);
+          q.where('tags.id', id);
         });
       });
     }
