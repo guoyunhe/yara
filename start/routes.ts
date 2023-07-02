@@ -36,6 +36,8 @@ Route.resource('/images', 'ImagesController')
     destroy: ['auth'],
   });
 
+Route.resource('/tags', 'TagsController').only(['index', 'show']);
+
 Route.group(() => {
   Route.resource('/users', 'AdminUsersController').apiOnly();
 })
