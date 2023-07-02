@@ -27,9 +27,12 @@ export default class TagsController {
     return await query.paginate(page, perPage);
   }
 
-  public async show({ request }: HttpContextContract) {
+  public async show({ request, response }: HttpContextContract) {
     const tag = await Tag.find(request.param('id'));
-    await tag?.load('icon');
+    if (!tag) {
+      return response.notFound();
+    }
+    await tag.load('icon');
     return tag;
   }
 }

@@ -37,6 +37,13 @@ Route.resource('/images', 'ImagesController')
   });
 
 Route.resource('/tags', 'TagsController').only(['index', 'show']);
+Route.resource('/posts', 'PostsController')
+  .apiOnly()
+  .middleware({
+    store: ['auth'],
+    update: ['auth'],
+    destroy: ['auth'],
+  });
 
 Route.group(() => {
   Route.resource('/tags', 'TagsController').apiOnly();
