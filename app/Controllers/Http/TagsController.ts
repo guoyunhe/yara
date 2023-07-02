@@ -1,18 +1,12 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
-import { rules, schema } from '@ioc:Adonis/Core/Validator';
+import { schema } from '@ioc:Adonis/Core/Validator';
 import Tag from 'App/Models/Tag';
 
 export default class TagsController {
   public async index({ request }: HttpContextContract) {
-    const {
-      search,
-      page = 1,
-      perPage = 10,
-    } = await request.validate({
+    const { search } = await request.validate({
       schema: schema.create({
         search: schema.string.nullableAndOptional({ trim: true }),
-        page: schema.number.optional([rules.range(1, 2048)]),
-        perPage: schema.number.optional([rules.range(5, 20)]),
       }),
     });
 
@@ -24,7 +18,7 @@ export default class TagsController {
       });
     }
 
-    return await query.paginate(page, perPage);
+    return await query;
   }
 
   public async show({ request, response }: HttpContextContract) {
