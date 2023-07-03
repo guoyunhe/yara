@@ -11,13 +11,13 @@ import Model from './Model';
 interface ImageCreateFromFileOptions {
   filePath: string;
   folder?: string;
-  userId: number;
+  userId?: number;
   resizeOptions: { width: number; height: number; fit: 'contain' | 'cover' };
 }
 
 export default class Image extends Model {
   @column()
-  public userId: number;
+  public userId: number | null;
 
   @column()
   public path: string;
@@ -54,7 +54,7 @@ export default class Image extends Model {
     await Drive.put(path, buffer);
     const size = buffer.byteLength;
     const { width, height } = imageSize(buffer);
-    const image = await Image.firstOrCreate({
+    const image = await Image.create({
       userId,
       path,
       size,
