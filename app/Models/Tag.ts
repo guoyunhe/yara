@@ -1,4 +1,11 @@
-import { BelongsTo, ManyToMany, belongsTo, column, manyToMany } from '@ioc:Adonis/Lucid/Orm';
+import {
+  BelongsTo,
+  ManyToMany,
+  belongsTo,
+  column,
+  computed,
+  manyToMany,
+} from '@ioc:Adonis/Lucid/Orm';
 import Image from './Image';
 import Model from './Model';
 import Post from './Post';
@@ -26,4 +33,14 @@ export default class Tag extends Model {
     pivotTable: 'user_tags',
   })
   public users: ManyToMany<typeof User>;
+
+  @computed()
+  public get postsCount(): number | null {
+    return this.$extras.posts_count;
+  }
+
+  @computed()
+  public get usersCount(): number | null {
+    return this.$extras.users_count;
+  }
 }

@@ -39,7 +39,7 @@ export default class PostsController {
       }),
     });
 
-    let query = Post.query().preload('user').preload('tags');
+    let query = Post.query().preload('user').preload('tags').withCount('comments');
 
     if (search) {
       search.split(' ').forEach((word) => {

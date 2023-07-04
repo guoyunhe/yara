@@ -10,7 +10,7 @@ export default class TagsController {
       }),
     });
 
-    let query = Tag.query().preload('icon');
+    let query = Tag.query().preload('icon').withCount('posts').withCount('users');
 
     if (search) {
       search.split(' ').forEach((word) => {
@@ -27,6 +27,8 @@ export default class TagsController {
       return response.notFound();
     }
     await tag.load('icon');
+    await tag.loadCount('users');
+    await tag.loadCount('posts');
     return tag;
   }
 }

@@ -4,6 +4,7 @@ import {
   ManyToMany,
   belongsTo,
   column,
+  computed,
   hasMany,
   manyToMany,
 } from '@ioc:Adonis/Lucid/Orm';
@@ -32,4 +33,9 @@ export default class Post extends Model {
     pivotTable: 'post_tags',
   })
   public tags: ManyToMany<typeof Tag>;
+
+  @computed()
+  public get commentsCount(): number | null {
+    return this.comments ? this.comments.length : this.$extras.comments_count;
+  }
 }
