@@ -9,5 +9,13 @@ export const CommentFactory = Factory.define(Comment, async ({ faker }) => {
     content: faker.lorem.paragraphs(),
   };
 })
-  .relation('comments', () => CommentFactory)
+  .after('create', async (factory, model, ctx) => {
+    await model.load('post');
+    await model.post.load('comments');
+    const comment = ctx.faker.helpers.arrayElement(model.post.comments);
+    if (comment.id !== model.id && Math.random() > 0.2) {
+      model.parentId = comment.id;
+      await model.save();
+    }
+  })
   .build();

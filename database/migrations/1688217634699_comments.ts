@@ -10,7 +10,7 @@ export default class extends BaseSchema {
       table.integer('user_id').unsigned().notNullable().references('users.id').onDelete('CASCADE');
       table.integer('post_id').unsigned().nullable().references('posts.id').onDelete('CASCADE');
       table
-        .integer('comment_id')
+        .integer('parent_id')
         .unsigned()
         .nullable()
         .references('comments.id')

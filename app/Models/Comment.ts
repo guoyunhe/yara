@@ -11,7 +11,7 @@ export default class Comment extends Model {
   public postId: number | null;
 
   @column()
-  public commentId: number | null;
+  public parentId: number | null;
 
   @column()
   public content: string;

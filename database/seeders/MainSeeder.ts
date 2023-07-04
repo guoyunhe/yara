@@ -1,7 +1,7 @@
 import BaseSeeder from '@ioc:Adonis/Lucid/Seeder';
 import Image from 'App/Models/Image';
+import Tag from 'App/Models/Tag';
 import { PostFactory } from 'Database/factories/PostFactory';
-import { TagFactory } from 'Database/factories/TagFactory';
 import { UserFactory } from 'Database/factories/UserFactory';
 
 export default class extends BaseSeeder {
@@ -14,7 +14,7 @@ export default class extends BaseSeeder {
       filePath: 'database/images/ubuntu.webp',
       resizeOptions: { width: 512, height: 512, fit: 'cover' },
     });
-    await TagFactory.merge([
+    await Tag.createMany([
       {
         slug: 'arch',
         name: 'Arch',
@@ -33,13 +33,13 @@ export default class extends BaseSeeder {
         name: 'Ubuntu',
         iconId: ubuntu.id,
       },
-    ]).createMany(10);
+    ]);
 
     await UserFactory.merge([
       { email: 'admin@example.com', password: 'password', role: 'admin' },
       { email: 'user@example.com', password: 'password' },
     ]).createMany(100);
 
-    await PostFactory.with('comments', 100).createMany(1000);
+    await PostFactory.with('comments', 30).createMany(50);
   }
 }
