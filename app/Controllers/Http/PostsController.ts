@@ -100,7 +100,7 @@ export default class PostsController {
       return response.notFound();
     }
 
-    await post.load('comments');
+    await post.load('comments', (q) => q.preload('user'));
     await post.load('tags');
     await post.load('user');
 
