@@ -39,6 +39,9 @@ export default class User extends Model {
   @column()
   public locale: string | null;
 
+  @column()
+  public description: string | null;
+
   @belongsTo(() => Image, { foreignKey: 'avatarId' })
   public avatar: BelongsTo<typeof Image>;
 

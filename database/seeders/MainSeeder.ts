@@ -40,8 +40,6 @@ export default class extends BaseSeeder {
       { email: 'user@example.com', password: 'password' },
     ]).createMany(100);
 
-    await PostFactory.with('comments', 10, (comment) => comment.with('comments', 5)).createMany(
-      1000
-    );
+    await PostFactory.with('comments', 100).createMany(1000);
   }
 }

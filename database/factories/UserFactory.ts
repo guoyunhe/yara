@@ -6,7 +6,8 @@ import { PostFactory } from './PostFactory';
 export const UserFactory = Factory.define(User, ({ faker }) => {
   return {
     name: faker.internet.displayName(),
-    username: faker.internet.userName(),
+    username: faker.internet.userName().toLocaleLowerCase(),
+    description: faker.lorem.sentence(),
     email: faker.internet.email(),
     password: faker.internet.password(),
   };

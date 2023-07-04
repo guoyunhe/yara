@@ -86,6 +86,7 @@ export default class AuthController {
           rules.maxLength(255),
         ]),
         locale: schema.string.optional({ trim: true }),
+        description: schema.string.optional({ trim: true }),
       }),
     });
 
