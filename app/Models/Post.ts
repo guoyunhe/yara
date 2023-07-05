@@ -42,4 +42,9 @@ export default class Post extends Model {
   public get commentsCount(): number | null {
     return this.comments ? this.comments.length : this.$extras.comments_count;
   }
+
+  @computed()
+  public get votesSum(): number | null {
+    return this.$extras.votes_sum ? Number(this.$extras.votes_sum) : null;
+  }
 }

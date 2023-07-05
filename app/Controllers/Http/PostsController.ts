@@ -39,8 +39,13 @@ export default class PostsController {
       }),
     });
 
-    let query = Post.query().preload('user').preload('tags').withCount('comments');
-
+    let query = Post.query()
+      .preload('user')
+      .preload('tags')
+      .withCount('comments')
+      .withAggregate('votes', (query) => {
+        query.sum('vote').as('votes_sum');
+      });
     if (search) {
       search.split(' ').forEach((word) => {
         query = query.whereILike('title', `%${word}%`).orWhereILike('content', `%${word}%`);
