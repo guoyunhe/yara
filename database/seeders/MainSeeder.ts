@@ -35,11 +35,19 @@ export default class extends BaseSeeder {
       },
     ]);
 
-    await UserFactory.merge([
+    const users = await UserFactory.merge([
       { email: 'admin@example.com', password: 'password', role: 'admin' },
       { email: 'user@example.com', password: 'password' },
     ]).createMany(100);
 
-    await PostFactory.with('comments', 30).createMany(50);
+    const randomUserIds = () =>
+      users.sort(() => Math.random() - 0.5).map((user) => ({ userId: user.id }));
+
+    await PostFactory.merge(randomUserIds())
+      .with('comments', 30, (comment) =>
+        comment.merge(randomUserIds()).with('votes', 10, (vote) => vote.merge(randomUserIds()))
+      )
+      .with('votes', 10, (vote) => vote.merge(randomUserIds()))
+      .createMany(50);
   }
 }

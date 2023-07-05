@@ -10,6 +10,7 @@ import {
 } from '@ioc:Adonis/Lucid/Orm';
 import Comment from './Comment';
 import Model from './Model';
+import PostVote from './PostVote';
 import Tag from './Tag';
 import User from './User';
 
@@ -28,6 +29,9 @@ export default class Post extends Model {
 
   @hasMany(() => Comment)
   public comments: HasMany<typeof Comment>;
+
+  @hasMany(() => PostVote)
+  public votes: HasMany<typeof PostVote>;
 
   @manyToMany(() => Tag, {
     pivotTable: 'post_tags',
