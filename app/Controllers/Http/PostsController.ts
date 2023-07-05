@@ -105,9 +105,16 @@ export default class PostsController {
       return response.notFound();
     }
 
-    await post.load('comments', (q) => q.preload('user'));
+    await post.load('comments', (q) =>
+      q.preload('user').withAggregate('votes', (query) => {
+        query.sum('vote').as('votes_sum');
+      })
+    );
     await post.load('tags');
     await post.load('user');
+    await post.loadAggregate('votes', (query) => {
+      query.sum('vote').as('votes_sum');
+    });
 
     return post;
   }
