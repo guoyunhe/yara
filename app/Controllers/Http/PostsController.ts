@@ -3,7 +3,7 @@ import { rules, schema } from '@ioc:Adonis/Core/Validator';
 import Post from 'App/Models/Post';
 
 export default class PostsController {
-  public async index({ request }: HttpContextContract) {
+  public async index({ auth, request }: HttpContextContract) {
     const {
       userId,
       tagId,
@@ -39,32 +39,40 @@ export default class PostsController {
       }),
     });
 
-    let query = Post.query()
+    const query = Post.query()
       .preload('user')
       .preload('tags')
       .withCount('comments')
+
       .withAggregate('votes', (query) => {
         query.sum('vote').as('votes_sum');
       });
+
+    if (auth.user) {
+      query.preload('votes', (q) => {
+        q.where('userId', auth.user!.id);
+      });
+    }
+
     if (search) {
       search.split(' ').forEach((word) => {
-        query = query.whereILike('title', `%${word}%`).orWhereILike('content', `%${word}%`);
+        query.whereILike('title', `%${word}%`).orWhereILike('content', `%${word}%`);
       });
     }
 
     if (userId) {
-      query = query.where('userId', userId);
+      query.where('userId', userId);
     }
 
     if (tagId) {
-      query = query.whereHas('tags', (q) => {
+      query.whereHas('tags', (q) => {
         q.where('tags.id', tagId);
       });
     }
 
     if (tagIds) {
       tagIds.forEach((id) => {
-        query = query.whereHas('tags', (q) => {
+        query.whereHas('tags', (q) => {
           q.where('tags.id', id);
         });
       });
@@ -98,23 +106,36 @@ export default class PostsController {
     return post;
   }
 
-  public async show({ request, response }: HttpContextContract) {
-    const post = await Post.find(request.param('id'));
+  public async show({ auth, request, response }: HttpContextContract) {
+    const query = Post.query()
+      .where('id', request.param('id'))
+      .preload('user')
+      .preload('tags')
+      .preload('comments', (q) => {
+        q.preload('user').withAggregate('votes', (q2) => {
+          q2.sum('vote').as('votes_sum');
+        });
+        if (auth.user) {
+          q.preload('votes', (q2) => {
+            q2.where('userId', auth.user!.id);
+          });
+        }
+      })
+      .withAggregate('votes', (q) => {
+        q.sum('vote').as('votes_sum');
+      });
+
+    if (auth.user) {
+      query.preload('votes', (q) => {
+        q.where('userId', auth.user!.id);
+      });
+    }
+
+    const post = await query.first();
 
     if (!post) {
       return response.notFound();
     }
-
-    await post.load('comments', (q) =>
-      q.preload('user').withAggregate('votes', (query) => {
-        query.sum('vote').as('votes_sum');
-      })
-    );
-    await post.load('tags');
-    await post.load('user');
-    await post.loadAggregate('votes', (query) => {
-      query.sum('vote').as('votes_sum');
-    });
 
     return post;
   }
