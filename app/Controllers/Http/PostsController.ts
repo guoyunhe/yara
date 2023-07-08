@@ -110,7 +110,9 @@ export default class PostsController {
     const query = Post.query()
       .where('id', request.param('id'))
       .preload('user')
-      .preload('tags')
+      .preload('tags', (q) => {
+        q.preload('icon');
+      })
       .preload('comments', (q) => {
         q.preload('user').withAggregate('votes', (q2) => {
           q2.sum('vote').as('votes_sum');
