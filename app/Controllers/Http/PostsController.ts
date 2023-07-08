@@ -90,7 +90,7 @@ export default class PostsController {
           schema.object().members({
             id: schema.number([
               rules.exists({
-                table: 'images',
+                table: 'tags',
                 column: 'id',
               }),
             ]),
@@ -157,7 +157,7 @@ export default class PostsController {
           schema.object().members({
             id: schema.number([
               rules.exists({
-                table: 'images',
+                table: 'tags',
                 column: 'id',
               }),
             ]),
