@@ -53,6 +53,14 @@ Route.resource('posts.votes', 'PostVotesController')
     destroy: ['auth'],
   });
 
+Route.resource('comments.votes', 'CommentVotesController')
+  .apiOnly()
+  .middleware({
+    store: ['auth'],
+    update: ['auth'],
+    destroy: ['auth'],
+  });
+
 Route.group(() => {
   Route.resource('tags', 'TagsController').apiOnly();
   Route.resource('users', 'UsersController').apiOnly();
