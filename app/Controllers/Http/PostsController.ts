@@ -43,10 +43,11 @@ export default class PostsController {
       .preload('user')
       .preload('tags')
       .withCount('comments')
-
       .withAggregate('votes', (query) => {
         query.sum('vote').as('votes_sum');
       });
+
+    query.orderBy('createdAt', 'desc');
 
     if (auth.user) {
       query.preload('votes', (q) => {
