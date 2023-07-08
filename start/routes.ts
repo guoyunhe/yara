@@ -36,15 +36,21 @@ Route.resource('/images', 'ImagesController')
     destroy: ['auth'],
   });
 
-Route.resource('/tags', 'TagsController').only(['index', 'show']);
-Route.resource('/posts', 'PostsController')
+Route.resource('tags', 'TagsController').only(['index', 'show']);
+Route.resource('posts', 'PostsController')
   .apiOnly()
   .middleware({
     store: ['auth'],
     update: ['auth'],
     destroy: ['auth'],
   });
-
+Route.resource('posts.comments', 'CommentsController')
+  .apiOnly()
+  .middleware({
+    store: ['auth'],
+    update: ['auth'],
+    destroy: ['auth'],
+  });
 Route.resource('posts.votes', 'PostVotesController')
   .apiOnly()
   .middleware({
@@ -52,7 +58,6 @@ Route.resource('posts.votes', 'PostVotesController')
     update: ['auth'],
     destroy: ['auth'],
   });
-
 Route.resource('comments.votes', 'CommentVotesController')
   .apiOnly()
   .middleware({
