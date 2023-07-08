@@ -45,9 +45,17 @@ Route.resource('/posts', 'PostsController')
     destroy: ['auth'],
   });
 
+Route.resource('posts.votes', 'PostVotesController')
+  .apiOnly()
+  .middleware({
+    store: ['auth'],
+    update: ['auth'],
+    destroy: ['auth'],
+  });
+
 Route.group(() => {
-  Route.resource('/tags', 'TagsController').apiOnly();
-  Route.resource('/users', 'UsersController').apiOnly();
+  Route.resource('tags', 'TagsController').apiOnly();
+  Route.resource('users', 'UsersController').apiOnly();
 })
   .prefix('/admin')
   .as('admin')
