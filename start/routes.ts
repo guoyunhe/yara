@@ -65,6 +65,7 @@ Route.resource('comments.votes', 'CommentVotesController')
     update: ['auth'],
     destroy: ['auth'],
   });
+Route.resource('users', 'UsersController').only(['show']);
 
 Route.group(() => {
   Route.resource('tags', 'TagsController').apiOnly();
