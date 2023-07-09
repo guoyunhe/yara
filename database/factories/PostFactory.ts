@@ -7,7 +7,7 @@ import { PostVoteFactory } from './PostVoteFactory';
 export const PostFactory = Factory.define(Post, async ({ faker }) => {
   return {
     title: faker.lorem.sentence(),
-    content: faker.lorem.paragraphs(),
+    content: faker.lorem.paragraphs({ min: 1, max: 5 }, '\n\n'),
   };
 })
   .relation('comments', () => CommentFactory)
