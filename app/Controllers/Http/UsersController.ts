@@ -7,7 +7,9 @@ export default class UsersController {
       .where('id', request.param('id'))
       .orWhere('username', request.param('id'))
       .preload('avatar')
-      .preload('tags')
+      .preload('tags', (q) => {
+        q.preload('icon');
+      })
       .withCount('posts')
       .first();
 

@@ -56,7 +56,7 @@ export default class AuthController {
   }
 
   public async update({ auth, request }: HttpContextContract) {
-    const data = await request.validate({
+    const { tags, ...data } = await request.validate({
       schema: schema.create({
         avatarId: schema.number.nullableAndOptional([
           rules.exists({
@@ -87,12 +87,25 @@ export default class AuthController {
         ]),
         locale: schema.string.optional({ trim: true }),
         description: schema.string.optional({ trim: true }),
+        tags: schema.array.nullableAndOptional().members(
+          schema.object().members({
+            id: schema.number([
+              rules.exists({
+                table: 'tags',
+                column: 'id',
+              }),
+            ]),
+          })
+        ),
       }),
     });
 
     auth.user!.merge(data);
     await auth.user!.save();
     await auth.user!.load('avatar');
+    if (tags) {
+      await auth.user!.related('tags').sync(tags?.map((tag) => tag.id));
+    }
     return auth.user;
   }
 
