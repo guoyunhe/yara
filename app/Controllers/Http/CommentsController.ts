@@ -27,8 +27,10 @@ export default class CommentsController {
       content,
       userId: auth.user!.id,
       postId: post.id,
-      parentId,
+      parentId: parentId || null,
     });
+
+    await comment.load('user');
 
     return comment;
   }
@@ -52,6 +54,8 @@ export default class CommentsController {
 
     comment.merge({ content });
     await comment.save();
+
+    await comment.load('user');
 
     return comment;
   }
