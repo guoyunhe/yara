@@ -11,6 +11,7 @@ export default class AuthController {
       const token = await auth.use('api').attempt(email, password);
       const user = await User.findBy('email', email);
       await user?.load('avatar');
+      await user?.load('tags', (q) => q.preload('icon'));
       return { token, user };
     } catch {
       return response.unauthorized({ message: i18n.formatMessage('auth.invalidCredetials') });
@@ -52,6 +53,7 @@ export default class AuthController {
 
   public async show({ auth }: HttpContextContract) {
     await auth.user?.load('avatar');
+    await auth.user?.load('tags', (q) => q.preload('icon'));
     return auth.user;
   }
 
@@ -106,6 +108,9 @@ export default class AuthController {
     if (tags) {
       await auth.user!.related('tags').sync(tags?.map((tag) => tag.id));
     }
+    auth.user!.load('tags', (q) => {
+      q.preload('icon');
+    });
     return auth.user;
   }
 
