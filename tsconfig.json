@@ -33,7 +33,9 @@
       "@japa/preset-adonis/build/adonis-typings",
       "@adonisjs/auth",
       "@adonisjs/lucid",
-      "@adonisjs/i18n"
+      "@adonisjs/i18n",
+      "@adonisjs/view"
     ]
-  }
+  },
+  "references": [{ "path": "./resources/assets" }]
 }

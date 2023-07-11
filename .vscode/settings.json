@@ -35,5 +35,8 @@
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "[edge]": {
+    "editor.defaultFormatter": "jripouteau.adonis-vscode-extension"
+  }
 }

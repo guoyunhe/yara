@@ -13,24 +13,40 @@
     "Database": "database",
     "Contracts": "contracts"
   },
-  "preloads": ["./start/routes", "./start/kernel"],
+  "preloads": [
+    "./start/routes",
+    "./start/kernel"
+  ],
   "providers": [
     "./providers/AppProvider",
     "@adonisjs/core",
     "@adonisjs/auth",
     "@adonisjs/lucid",
-    "@adonisjs/i18n"
+    "@adonisjs/i18n",
+    "@adonisjs/view"
   ],
-  "aceProviders": ["@adonisjs/repl"],
+  "aceProviders": [
+    "@adonisjs/repl"
+  ],
   "tests": {
     "suites": [
       {
         "name": "functional",
-        "files": ["tests/functional/**/*.spec(.ts|.js)"],
+        "files": [
+          "tests/functional/**/*.spec(.ts|.js)"
+        ],
         "timeout": 60000
       }
     ]
   },
-  "testProviders": ["@japa/preset-adonis/TestsProvider"],
-  "metaFiles": ["resources/lang/**/*.(json|yaml)"]
+  "testProviders": [
+    "@japa/preset-adonis/TestsProvider"
+  ],
+  "metaFiles": [
+    "resources/lang/**/*.(json|yaml)",
+    {
+      "pattern": "resources/views/**/*.edge",
+      "reloadServer": false
+    }
+  ]
 }
