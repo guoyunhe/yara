@@ -22,5 +22,6 @@
       "types/*": ["./types/*"],
       "utils/*": ["./utils/*"]
     }
-  }
+  },
+  "composite": true
 }
