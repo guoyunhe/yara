@@ -1,6 +1,6 @@
 declare global {
   interface Window {
-    APP_NAME: string;
+    SITE_NAME: string;
   }
 }
 

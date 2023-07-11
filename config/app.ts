@@ -5,12 +5,12 @@
  * file.
  */
 
-import proxyAddr from 'proxy-addr';
 import Env from '@ioc:Adonis/Core/Env';
-import type { ServerConfig } from '@ioc:Adonis/Core/Server';
 import type { LoggerConfig } from '@ioc:Adonis/Core/Logger';
 import type { ProfilerConfig } from '@ioc:Adonis/Core/Profiler';
+import type { ServerConfig } from '@ioc:Adonis/Core/Server';
 import type { ValidatorConfig } from '@ioc:Adonis/Core/Validator';
+import proxyAddr from 'proxy-addr';
 
 /*
 |--------------------------------------------------------------------------
@@ -143,11 +143,11 @@ export const logger: LoggerConfig = {
   | The name of the application you want to add to the log. It is recommended
   | to always have app name in every log line.
   |
-  | The `APP_NAME` environment variable is automatically set by AdonisJS by
+  | The `SITE_NAME` environment variable is automatically set by AdonisJS by
   | reading the `name` property from the `package.json` file.
   |
   */
-  name: Env.get('APP_NAME'),
+  name: Env.get('SITE_NAME'),
 
   /*
   |--------------------------------------------------------------------------

@@ -16,7 +16,7 @@ export default function TopNav({ onMenuButtonClick }: TopNavProps) {
           <MenuIcon />
         </IconButton>
         <Typography fontSize={20} noWrap component="div">
-          {window.APP_NAME} {t('Admin')}
+          {window.SITE_NAME} {t('Admin')}
         </Typography>
       </Toolbar>
     </AppBar>

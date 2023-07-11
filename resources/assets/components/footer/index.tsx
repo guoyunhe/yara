@@ -9,7 +9,7 @@ export default function Footer() {
   return (
     <Box component="footer" p={3} display="flex">
       <Box>
-        &copy; {date.getFullYear()} {window.APP_NAME}
+        &copy; {date.getFullYear()} {window.SITE_NAME}
       </Box>
       <Box flex="1 1 auto" />
       <Stack direction="row" spacing={2}>

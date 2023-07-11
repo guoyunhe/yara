@@ -33,7 +33,7 @@ export default class Image extends Model {
 
   @computed()
   public get url(): string {
-    return `${Env.get('APP_URL')}${driveConfig.disks.local.basePath}/${this.path}`;
+    return `${Env.get('SITE_URL')}${driveConfig.disks.local.basePath}/${this.path}`;
   }
 
   public async delete() {

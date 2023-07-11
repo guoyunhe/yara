@@ -2,12 +2,13 @@
 <html lang="en">
 
 <head>
+  <title>{{ env('SITE_NAME') }}</title>
 </head>
 
 <body>
   <div id="root"></div>
   <script>
-    window.APP_NAME = "{{ env('APP_NAME') }}";
+    window.SITE_NAME = "{{ env('SITE_NAME') }}";
   </script>
   <script src="{{ asset('assets/app.js') }}"></script>
 </body>

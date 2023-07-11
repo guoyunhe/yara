@@ -39,7 +39,7 @@ export default function TopNav({ onMenuButtonClick }: TopNavProps) {
             sx={{ mr: 1, display: { xs: 'none', sm: 'block' } }}
           />
           <Typography fontSize={20} color="inherit" component="div">
-            {window.APP_NAME}
+            {window.SITE_NAME}
           </Typography>
         </Box>
         <Box flex="1 1 auto" />
