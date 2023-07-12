@@ -32,7 +32,7 @@ export default class OptionsController {
       schema: schema.create({
         key: schema.string({ trim: true }, [
           rules.alphaNum({ allow: ['underscore'] }),
-          rules.unique({ table: 'options', column: 'key', caseInsensitive: true }),
+          // rules.unique({ table: 'options', column: 'key', caseInsensitive: true }),
           rules.maxLength(255),
         ]),
       }),

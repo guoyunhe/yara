@@ -13,15 +13,7 @@
     "moduleResolution": "Node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "react-jsx",
-    "paths": {
-      "components/*": ["./components/*"],
-      "config/*": ["./config/*"],
-      "layouts/*": ["./layouts/*"],
-      "pages/*": ["./pages/*"],
-      "types/*": ["./types/*"],
-      "utils/*": ["./utils/*"]
-    }
+    "jsx": "react-jsx"
   },
   "composite": true
 }
