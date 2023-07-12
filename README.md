@@ -2,25 +2,18 @@
 
 Yara is a self-hosting Reddit alternative.
 
-## Local Development
-
-## Production Deployment
-
-System requirements:
+## Requirements
 
 - GNU/Linux
-- Systemd, included in most modern GNU/Linux distributions
+- Nginx
 - Node.js 16+
 - MySQL/MariaDB/Postgres
 - Python 3
 - [Certbot](https://certbot.eff.org/)
 
-Initial deployment (Linux):
+## Install
 
 ```bash
-# generate https certificates
-sudo certbot certonly
-
 # configure environment variables
 cp .env.example .env
 vi .env
@@ -41,9 +34,12 @@ pm2 start pm2.config.js
 pm2 save
 ```
 
-Regular update:
+## Update
 
 ```bash
+# update code
+git pull
+
 # install dependencies
 npm install
 
@@ -54,38 +50,5 @@ node ace migration:run
 node ace build --production
 
 # restart daemon process
-sudo systemctl restart pm2-root
+pm2 restart all
 ```
-
-## API
-
-### Authentication
-
-#### POST /login
-
-Body:
-
-```ts
-interface RequestData {
-  name: string;
-  email: string;
-  password: string;
-}
-```
-
-#### POST /register
-
-## Documentation
-
-- [adonis-api-template](https://github.com/guoyunhe/adonis-api-template) - the template
-- [AdonisJS](https://docs.adonisjs.com/) - the framework
-- [PM2](https://pm2.keymetrics.io/) - the daemon process manager
-- [Certbot](https://certbot.eff.org/) - get free HTTPS certificates
-
-## About The Template
-
-This app is generated from https://github.com/guoyunhe/adonis-api-template
-
-Issues and pull requests are always welcome.
-
-Looking for a front-end template, too? Checkout https://github.com/guoyunhe/react-app-template
