@@ -34,6 +34,8 @@ pm2 start pm2.config.js
 pm2 save
 ```
 
+TODO: Nginx and certbot
+
 ## Update
 
 ```bash
