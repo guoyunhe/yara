@@ -38,7 +38,7 @@ export default function LeftNav({ drawerOpen, onDrawerClose }: LeftNavProps) {
       sx={{ width: config.drawerWidth }}
     >
       <List sx={{ width: config.drawerWidth }} onClick={onDrawerClose}>
-        <ListItemButton component={NavLink} to="/app">
+        <ListItemButton component={NavLink} to="/">
           <ListItemIcon>
             <ArrowBackIcon />
           </ListItemIcon>
@@ -61,7 +61,7 @@ export default function LeftNav({ drawerOpen, onDrawerClose }: LeftNavProps) {
           <ListItemIcon>
             <SettingsIcon />
           </ListItemIcon>
-          <ListItemText primary={t('Admin Settings')} />
+          <ListItemText primary={t('Site Settings')} />
         </ListItemButton>
         <ListItemButton onClick={logout.submit} disabled={logout.loading}>
           <ListItemIcon>

@@ -7,7 +7,7 @@ export default function AdminSettingsPage() {
   return (
     <Container maxWidth="sm">
       <Typography variant="h1" my={3}>
-        {t('Admin Settings')}
+        {t('Site Settings')}
       </Typography>
     </Container>
   );
