@@ -21,6 +21,10 @@
 import Route from '@ioc:Adonis/Core/Route';
 
 Route.group(() => {
+  Route.get('/', async () => {
+    return { hello: 'hello' };
+  });
+
   Route.post('/login', 'AuthController.login');
   Route.post('/logout', 'AuthController.logout').middleware('auth');
   Route.post('/register', 'AuthController.register');
@@ -69,6 +73,7 @@ Route.group(() => {
   Route.resource('users', 'UsersController').only(['show']);
 
   Route.group(() => {
+    Route.resource('options', 'OptionsController').apiOnly();
     Route.resource('tags', 'TagsController').apiOnly();
     Route.resource('users', 'UsersController').apiOnly();
   })
@@ -76,10 +81,6 @@ Route.group(() => {
     .as('admin')
     .namespace('App/Controllers/Http/Admin')
     .middleware(['auth', 'admin']);
-
-  Route.get('/', async ({ i18n }) => {
-    return { hello: i18n.formatMessage('messages.hello') };
-  });
 }).prefix('/api');
 
 Route.get('*', async ({ view }) => {
