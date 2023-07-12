@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+  <link rel="icon" type="image/svg+xml" href="{{ SITE_LOGO }}" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>{{ env('SITE_NAME') }}</title>
 </head>
@@ -12,6 +12,7 @@
   <div id="root"></div>
   <script>
     window.SITE_NAME = "{{ env('SITE_NAME') }}";
+    window.SITE_LOGO = "{{ SITE_LOGO }}";
   </script>
   <script src="{{ asset('assets/app.js') }}"></script>
 </body>

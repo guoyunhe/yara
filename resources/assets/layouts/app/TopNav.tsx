@@ -35,8 +35,8 @@ export default function TopNav({ onMenuButtonClick }: TopNavProps) {
         >
           <Box
             component="img"
-            src="/logo.svg"
-            sx={{ mr: 1, display: { xs: 'none', sm: 'block' } }}
+            src={window.SITE_LOGO}
+            sx={{ width: 32, height: 32, mr: 1, display: { xs: 'none', sm: 'block' } }}
           />
           <Typography fontSize={20} color="inherit" component="div">
             {window.SITE_NAME}

@@ -1,5 +1,6 @@
 declare global {
   interface Window {
+    SITE_LOGO: string;
     SITE_NAME: string;
   }
 }

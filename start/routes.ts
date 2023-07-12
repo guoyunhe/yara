@@ -19,6 +19,7 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route';
+import Option from 'App/Models/Option';
 
 Route.group(() => {
   Route.get('/', async () => {
@@ -84,7 +85,8 @@ Route.group(() => {
 }).prefix('/api');
 
 Route.get('*', async ({ view }) => {
-  const html = await view.render('app');
+  const siteLogo = await Option.findBy('key', 'site_logo');
+  const html = await view.render('app', { SITE_LOGO: siteLogo?.value?.url || '/logo.svg' });
 
   return html;
 });
