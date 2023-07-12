@@ -1,35 +1,8 @@
-# AdonisJS RESTful API Server
+# Yara
+
+Yara is a self-hosting Reddit alternative.
 
 ## Local Development
-
-System requirements:
-
-- Docker
-- Git
-- Node.js 16+
-
-First, you need to fork and clone the git repository.
-
-Then run the following commands:
-
-```bash
-# start docker containers for mysql, etc.
-docker compose up
-
-# configure environment variables
-cp .env.example .env
-
-# install dependencies
-npm install
-
-# migrate database schema
-node ace migration:run
-
-# start server with auto-reload
-node ace serve --watch
-```
-
-If remote source code was changed, run above commands again to update your local project.
 
 ## Production Deployment
 
