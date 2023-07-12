@@ -37,5 +37,5 @@
       "@adonisjs/view"
     ]
   },
-  "references": [{ "path": "./resources/assets/tsconfig.json" }]
+  "references": [{ "path": "./resources/assets/" }]
 }
