@@ -85,8 +85,13 @@ Route.group(() => {
 }).prefix('/api');
 
 Route.get('*', async ({ view }) => {
-  const siteLogo = await Option.findBy('key', 'site_logo');
-  const html = await view.render('app', { SITE_LOGO: siteLogo?.value?.url || '/logo.svg' });
-
+  const [siteLogo, siteName] = await Promise.all([
+    Option.findBy('key', 'site_logo'),
+    Option.findBy('key', 'site_name'),
+  ]);
+  const html = await view.render('app', {
+    SITE_LOGO: siteLogo?.value?.url || '/logo.svg',
+    SITE_NAME: siteName?.value || 'Yara',
+  });
   return html;
 });

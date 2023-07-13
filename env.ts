@@ -19,7 +19,6 @@ export default Env.rules({
   PORT: Env.schema.number(),
   CORS_ORIGIN: Env.schema.string(),
   APP_KEY: Env.schema.string(),
-  SITE_NAME: Env.schema.string(),
   SITE_URL: Env.schema.string(),
   DRIVE_DISK: Env.schema.enum(['local'] as const),
   DRIVE_LOCAL_ROOT: Env.schema.string.optional(),
