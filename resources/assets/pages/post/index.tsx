@@ -6,11 +6,11 @@ import { useCallback, useEffect, useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import Liker from '../../components/liker';
 import Markdown from '../../components/markdown';
 import RelativeTime from '../../components/relative-time';
 import TagChip from '../../components/tag-chip';
 import UserBrief from '../../components/user-brief';
-import Voter from '../../components/voter';
 import Comment from '../../types/models/Comment';
 import Post from '../../types/models/Post';
 import User from '../../types/models/User';
@@ -64,11 +64,11 @@ export default function PostPage() {
     <Box component="article" sx={{ flex: '1 1 auto', overflow: 'auto' }}>
       <Box component="header" sx={{ display: 'flex' }}>
         <Box sx={{ flex: '0 0 auto' }}>
-          <Voter
-            vote={post.votes?.[0]?.vote}
-            votesSum={post.votesSum}
-            onVote={(vote) => {
-              axios.post(`/posts/${post.id}/votes`, { vote });
+          <Liker
+            like={post.likes?.[0]?.like}
+            likesSum={post.likesSum}
+            onLike={(like) => {
+              axios.post(`/posts/${post.id}/likes`, { like });
             }}
             sx={{ mt: 6 }}
           />

@@ -1,9 +1,9 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import { rules, schema } from '@ioc:Adonis/Core/Validator';
 import Comment from 'App/Models/Comment';
-import CommentVote from 'App/Models/CommentVote';
+import CommentLike from 'App/Models/CommentLike';
 
-export default class CommentVotesController {
+export default class CommentLikesController {
   public async store({ auth, request, response }: HttpContextContract) {
     const comment = await Comment.find(request.param('comment_id'));
 
@@ -13,17 +13,17 @@ export default class CommentVotesController {
 
     const data = await request.validate({
       schema: schema.create({
-        vote: schema.number([rules.range(-1, 1)]),
+        like: schema.number([rules.range(-1, 1)]),
       }),
     });
 
-    const vote = await CommentVote.firstOrCreate(
+    const like = await CommentLike.firstOrCreate(
       { commentId: comment.id, userId: auth.user!.id },
       data
     );
 
-    vote.merge(data);
-    await vote.save();
-    return vote;
+    like.merge(data);
+    await like.save();
+    return like;
   }
 }

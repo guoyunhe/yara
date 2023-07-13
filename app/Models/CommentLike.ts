@@ -1,20 +1,20 @@
 import { BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm';
+import Comment from './Comment';
 import Model from './Model';
-import Post from './Post';
 import User from './User';
 
-export default class PostVote extends Model {
+export default class CommentLike extends Model {
   @column()
   public userId: number;
 
   @column()
-  public postId: number;
+  public commentId: number;
 
   @column()
-  public vote: number;
+  public like: number;
 
-  @belongsTo(() => Post)
-  public post: BelongsTo<typeof Post>;
+  @belongsTo(() => Comment)
+  public comment: BelongsTo<typeof Comment>;
 
   @belongsTo(() => User)
   public user: BelongsTo<typeof User>;

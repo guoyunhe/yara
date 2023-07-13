@@ -1,6 +1,6 @@
+import Like from './Like';
 import Model from './Model';
 import User from './User';
-import Vote from './Vote';
 
 export default interface Comment extends Model {
   content: string;
@@ -8,6 +8,6 @@ export default interface Comment extends Model {
   user: User;
   postId: number | null;
   parentId: number | null;
-  votesSum: number;
-  votes?: Vote[];
+  likesSum: number;
+  likes?: Like[];
 }

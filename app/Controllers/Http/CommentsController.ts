@@ -56,10 +56,10 @@ export default class CommentsController {
     await comment.save();
 
     await comment.load('user');
-    await comment.loadAggregate('votes', (q2) => {
-      q2.sum('vote').as('votes_sum');
+    await comment.loadAggregate('likes', (q2) => {
+      q2.sum('like').as('likes_sum');
     });
-    await comment.load('votes', (q2) => {
+    await comment.load('likes', (q2) => {
       q2.where('userId', auth.user!.id);
     });
 

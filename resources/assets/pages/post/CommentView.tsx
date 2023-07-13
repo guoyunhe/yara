@@ -5,10 +5,10 @@ import { Box, Button, Stack } from '@mui/material';
 import axios from 'axios';
 import { ReactNode, memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import Liker from '../../components/liker';
 import Markdown from '../../components/markdown';
 import RelativeTime from '../../components/relative-time';
 import UserBrief from '../../components/user-brief';
-import Voter from '../../components/voter';
 import Comment from '../../types/models/Comment';
 import User from '../../types/models/User';
 import CommentForm from './CommentForm';
@@ -33,11 +33,11 @@ function CommentView({ comment, children, onCreate, onUpdate, onDelete }: Commen
 
   return (
     <Box display="flex">
-      <Voter
-        vote={comment.votes?.[0]?.vote}
-        votesSum={comment.votesSum}
-        onVote={(vote) => {
-          axios.post(`/comments/${comment.id}/votes`, { vote });
+      <Liker
+        like={comment.likes?.[0]?.like}
+        likesSum={comment.likesSum}
+        onLike={(like) => {
+          axios.post(`/comments/${comment.id}/likes`, { like });
         }}
         sx={{ flex: '0 0 auto' }}
       />

@@ -1,5 +1,5 @@
 import { BelongsTo, HasMany, belongsTo, column, computed, hasMany } from '@ioc:Adonis/Lucid/Orm';
-import CommentVote from './CommentVote';
+import CommentLike from './CommentLike';
 import Model from './Model';
 import Post from './Post';
 import User from './User';
@@ -26,11 +26,11 @@ export default class Comment extends Model {
   @hasMany(() => Comment)
   public comments: HasMany<typeof Comment>;
 
-  @hasMany(() => CommentVote)
-  public votes: HasMany<typeof CommentVote>;
+  @hasMany(() => CommentLike)
+  public likes: HasMany<typeof CommentLike>;
 
   @computed()
-  public get votesSum(): number | null {
-    return this.$extras.votes_sum ? Number(this.$extras.votes_sum) : null;
+  public get likesSum(): number | null {
+    return this.$extras.likes_sum ? Number(this.$extras.likes_sum) : null;
   }
 }

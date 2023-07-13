@@ -2,9 +2,9 @@ import { Box, List, ListItemButton, ListItemText } from '@mui/material';
 import axios from 'axios';
 import { useFetch } from 'react-fast-fetch';
 import { Link, useParams } from 'react-router-dom';
+import Liker from '../../components/liker';
 import RelativeTime from '../../components/relative-time';
 import UserBrief from '../../components/user-brief';
-import Voter from '../../components/voter';
 import Paginated from '../../types/Paginated';
 import Post from '../../types/models/Post';
 
@@ -23,11 +23,11 @@ export default function PostList() {
           to={tagId ? `/t/${tagId}/p/${post.id}` : `/p/${post.id}`}
           sx={{ alignItems: 'stretch' }}
         >
-          <Voter
-            vote={post.votes?.[0]?.vote}
-            votesSum={post.votesSum}
-            onVote={(vote) => {
-              axios.post(`/posts/${post.id}/votes`, { vote });
+          <Liker
+            like={post.likes?.[0]?.like}
+            likesSum={post.likesSum}
+            onLike={(like) => {
+              axios.post(`/posts/${post.id}/likes`, { like });
             }}
             size="small"
             sx={{ ml: -2 }}

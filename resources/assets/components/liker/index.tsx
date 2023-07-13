@@ -8,41 +8,41 @@ const fontSizeDict: Record<string, number> = {
   large: 20,
 };
 
-export interface VoterProps {
-  vote?: number | null;
+export interface LikerProps {
+  like?: number | null;
   size?: 'small' | 'medium' | 'large';
-  votesSum?: number | null;
-  onVote?: (vote: number) => void;
+  likesSum?: number | null;
+  onLike?: (like: number) => void;
   sx?: SxProps;
 }
 
-function Voter({ vote = 0, size = 'medium', votesSum, onVote, sx }: VoterProps) {
+function Liker({ like = 0, size = 'medium', likesSum, onLike, sx }: LikerProps) {
   const fontSize = fontSizeDict[size];
-  const [voteState, setVoteState] = useState(vote || 0);
+  const [likeState, setLikeState] = useState(like || 0);
 
   useEffect(() => {
-    setVoteState(vote || 0);
-  }, [vote]);
+    setLikeState(like || 0);
+  }, [like]);
 
   return (
     <Stack sx={{ alignItems: 'center', minWidth: fontSize * 4, ...sx }}>
       <IconButton
-        color={voteState > 0 ? 'success' : 'inherit'}
+        color={likeState > 0 ? 'success' : 'inherit'}
         size={size}
         onClick={() => {
-          setVoteState(voteState === 1 ? 0 : 1);
-          onVote?.(voteState === 1 ? 0 : 1);
+          setLikeState(likeState === 1 ? 0 : 1);
+          onLike?.(likeState === 1 ? 0 : 1);
         }}
       >
         <ArrowDropUp sx={{ width: fontSize * 2, height: fontSize * 2 }} />
       </IconButton>
-      <Box sx={{ fontSize }}>{(votesSum || 0) - (vote || 0) + voteState}</Box>
+      <Box sx={{ fontSize }}>{(likesSum || 0) - (like || 0) + likeState}</Box>
       <IconButton
-        color={voteState < 0 ? 'error' : 'inherit'}
+        color={likeState < 0 ? 'error' : 'inherit'}
         size={size}
         onClick={() => {
-          setVoteState(voteState === -1 ? 0 : -1);
-          onVote?.(voteState === -1 ? 0 : -1);
+          setLikeState(likeState === -1 ? 0 : -1);
+          onLike?.(likeState === -1 ? 0 : -1);
         }}
       >
         <ArrowDropDown sx={{ width: fontSize * 2, height: fontSize * 2 }} />
@@ -51,4 +51,4 @@ function Voter({ vote = 0, size = 'medium', votesSum, onVote, sx }: VoterProps) 
   );
 }
 
-export default memo(Voter);
+export default memo(Liker);

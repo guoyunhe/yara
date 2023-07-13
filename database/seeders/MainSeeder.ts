@@ -45,9 +45,9 @@ export default class extends BaseSeeder {
 
     await PostFactory.merge(randomUserIds())
       .with('comments', 30, (comment) =>
-        comment.merge(randomUserIds()).with('votes', 10, (vote) => vote.merge(randomUserIds()))
+        comment.merge(randomUserIds()).with('likes', 10, (like) => like.merge(randomUserIds()))
       )
-      .with('votes', 10, (vote) => vote.merge(randomUserIds()))
+      .with('likes', 10, (like) => like.merge(randomUserIds()))
       .createMany(50);
   }
 }

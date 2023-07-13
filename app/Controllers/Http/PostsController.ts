@@ -43,14 +43,14 @@ export default class PostsController {
       .preload('user')
       .preload('tags')
       .withCount('comments')
-      .withAggregate('votes', (query) => {
-        query.sum('vote').as('votes_sum');
+      .withAggregate('likes', (query) => {
+        query.sum('like').as('likes_sum');
       });
 
     query.orderBy('createdAt', 'desc');
 
     if (auth.user) {
-      query.preload('votes', (q) => {
+      query.preload('likes', (q) => {
         q.where('userId', auth.user!.id);
       });
     }
@@ -115,21 +115,21 @@ export default class PostsController {
         q.preload('icon');
       })
       .preload('comments', (q) => {
-        q.preload('user').withAggregate('votes', (q2) => {
-          q2.sum('vote').as('votes_sum');
+        q.preload('user').withAggregate('likes', (q2) => {
+          q2.sum('like').as('likes_sum');
         });
         if (auth.user) {
-          q.preload('votes', (q2) => {
+          q.preload('likes', (q2) => {
             q2.where('userId', auth.user!.id);
           });
         }
       })
-      .withAggregate('votes', (q) => {
-        q.sum('vote').as('votes_sum');
+      .withAggregate('likes', (q) => {
+        q.sum('like').as('likes_sum');
       });
 
     if (auth.user) {
-      query.preload('votes', (q) => {
+      query.preload('likes', (q) => {
         q.where('userId', auth.user!.id);
       });
     }

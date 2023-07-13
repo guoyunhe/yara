@@ -57,14 +57,14 @@ Route.group(() => {
       update: ['auth'],
       destroy: ['auth'],
     });
-  Route.resource('posts.votes', 'PostVotesController')
+  Route.resource('posts.likes', 'PostLikesController')
     .apiOnly()
     .middleware({
       store: ['auth'],
       update: ['auth'],
       destroy: ['auth'],
     });
-  Route.resource('comments.votes', 'CommentVotesController')
+  Route.resource('comments.likes', 'CommentLikesController')
     .apiOnly()
     .middleware({
       store: ['auth'],

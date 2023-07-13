@@ -1,13 +1,13 @@
 import Factory from '@ioc:Adonis/Lucid/Factory';
 import Comment from 'App/Models/Comment';
-import { CommentVoteFactory } from './CommentVoteFactory';
+import { CommentLikeFactory } from './CommentLikeFactory';
 
 export const CommentFactory = Factory.define(Comment, async ({ faker }) => {
   return {
     content: faker.lorem.paragraphs({ min: 1, max: 5 }, '\n\n'),
   };
 })
-  .relation('votes', () => CommentVoteFactory)
+  .relation('likes', () => CommentLikeFactory)
   .after('create', async (factory, model, ctx) => {
     await model.load('post');
     await model.post.load('comments');

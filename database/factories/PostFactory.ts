@@ -2,7 +2,7 @@ import Factory from '@ioc:Adonis/Lucid/Factory';
 import Post from 'App/Models/Post';
 import Tag from 'App/Models/Tag';
 import { CommentFactory } from './CommentFactory';
-import { PostVoteFactory } from './PostVoteFactory';
+import { PostLikeFactory } from './PostLikeFactory';
 
 export const PostFactory = Factory.define(Post, async ({ faker }) => {
   return {
@@ -11,7 +11,7 @@ export const PostFactory = Factory.define(Post, async ({ faker }) => {
   };
 })
   .relation('comments', () => CommentFactory)
-  .relation('votes', () => PostVoteFactory)
+  .relation('likes', () => PostLikeFactory)
   .after('create', async (factory, model, ctx) => {
     const tags = await Tag.query()
       .orderByRaw('RAND()')
