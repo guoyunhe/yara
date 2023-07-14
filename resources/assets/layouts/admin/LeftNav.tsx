@@ -51,6 +51,12 @@ export default function LeftNav({ drawerOpen, onDrawerClose }: LeftNavProps) {
           </ListItemIcon>
           <ListItemText primary={t('Dashboard')} />
         </ListItemButton>
+        <ListItemButton component={NavLink} to="/admin/tags">
+          <ListItemIcon>
+            <PeopleIcon />
+          </ListItemIcon>
+          <ListItemText primary={t('Tag Management')} />
+        </ListItemButton>
         <ListItemButton component={NavLink} to="/admin/users">
           <ListItemIcon>
             <PeopleIcon />

@@ -20,6 +20,7 @@ const SettingsPage = lazy(() => import('./pages/settings'));
 
 // admin pages
 const AdminDashboardPage = lazy(() => import('./pages/admin-dashboard'));
+const AdminTagListPage = lazy(() => import('./pages/admin-tag-list'));
 const AdminUserListPage = lazy(() => import('./pages/admin-user-list'));
 const AdminSettingsPage = lazy(() => import('./pages/admin-settings'));
 
@@ -124,6 +125,10 @@ const routes: RouteObject[] = [
       {
         index: true,
         element: <AdminDashboardPage />,
+      },
+      {
+        path: 'tags',
+        element: <AdminTagListPage />,
       },
       {
         path: 'users',

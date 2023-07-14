@@ -1,9 +1,20 @@
 {
   "Back": "Back",
   "Dashboard": "Dashboard",
+  "Tag Management": "Tag Management",
   "User Management": "User Management",
   "Site Settings": "Site Settings",
   "Logout": "Logout",
   "Admin": "Admin",
+  "Site Information": "Site Information",
+  "Site Logo": "Site Logo",
+  "Site Name": "Site Name",
+  "Site Description": "Site Description",
+  "Upload": "Upload",
+  "Save": "Save",
+  "Slug": "Slug",
+  "Name": "Name",
+  "Update": "Update",
+  "Create": "Create",
   "Delete": "Delete"
 }

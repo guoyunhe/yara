@@ -5,6 +5,7 @@
     "test": "node ace test",
     "build": "node ace build --production",
     "start": "node build/server.js",
+    "i18next": "i18next",
     "lint": "eslint . --ext=.ts",
     "format": "prettier --write ."
   },

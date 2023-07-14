@@ -1,9 +1,20 @@
 {
   "Back": "返回",
   "Dashboard": "控制台",
+  "Tag Management": "标签管理",
   "User Management": "用户管理",
   "Site Settings": "站点设置",
   "Logout": "注销",
   "Admin": "管理员",
+  "Site Information": "站点信息",
+  "Site Logo": "站点标志",
+  "Site Name": "站点名称",
+  "Site Description": "站点描述",
+  "Upload": "上传",
+  "Save": "保存",
+  "Slug": "别名",
+  "Name": "名称",
+  "Update": "更新",
+  "Create": "创建",
   "Delete": "删除"
 }
