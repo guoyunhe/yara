@@ -3,7 +3,7 @@
   "exclude": ["node_modules", "build"],
   "compilerOptions": {
     "target": "ES2020",
-    "module": "commonjs",
+    "module": "CommonJS",
     "lib": ["ESNext", "DOM"],
     "noUnusedLocals": true,
     "skipLibCheck": true,
