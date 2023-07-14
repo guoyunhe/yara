@@ -7,7 +7,7 @@ export default {
   indentation: 2,
   keySeparator: false,
   namespaceSeparator: false,
-  defaultValue: (locale: string, namespace: string, key: string) => {
+  defaultValue: (locale: string, _namespace: string, key: string) => {
     return locale === 'en' ? key : '';
   },
 };
