@@ -18,6 +18,9 @@ Yara is a self-hosting Reddit alternative.
 cp .env.example .env
 vi .env
 
+# generate new APP_KEY
+node ace generate:key
+
 # install dependencies
 npm install
 

@@ -1,7 +1,9 @@
+const { basename } = require('path');
+
 module.exports = {
   apps: [
     {
-      name: 'my-app',
+      name: basename(__dirname),
       script: './build/server.js',
       instances: 'max',
       exec_mode: 'cluster',
