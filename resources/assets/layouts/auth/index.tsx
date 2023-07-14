@@ -32,7 +32,7 @@ export default function AuthLayout() {
         <Paper>
           <Tabs
             value={location.pathname}
-            onChange={(e, value) => {
+            onChange={(_e, value) => {
               navigate(value);
             }}
             variant="fullWidth"

@@ -12,7 +12,7 @@ interface TextOptionEditorProps {
 
 export default function TextOptionEditor({ optionKey, multiline }: TextOptionEditorProps) {
   const { t } = useTranslation('admin');
-  const { value, save, saving, error } = useOption(optionKey);
+  const { value, save, saving } = useOption(optionKey);
   const [state, setState] = useState(value);
 
   useEffect(() => {
@@ -25,7 +25,7 @@ export default function TextOptionEditor({ optionKey, multiline }: TextOptionEdi
         value={state}
         onChange={(e) => setState(e.target.value)}
         fullWidth
-        multiline
+        multiline={multiline}
         sx={{ mr: 2 }}
       />
       <LoadingButton

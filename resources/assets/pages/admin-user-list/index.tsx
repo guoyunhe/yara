@@ -49,7 +49,7 @@ export default function AdminUserListPage() {
       <Pagination
         page={Number(searchParams.get('page'))}
         count={Math.ceil(total / 10)}
-        onChange={(e, page) => {
+        onChange={(_e, page) => {
           setSearchParams((prev) => {
             const next = new URLSearchParams(prev);
             next.set('page', String(page));

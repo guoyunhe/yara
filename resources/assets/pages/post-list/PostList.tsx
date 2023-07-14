@@ -52,7 +52,7 @@ export default function PostList() {
           </ListItemButton>
         ))}
       </List>
-      <Pagination count={totalPage} page={page} onChange={(e, p) => setPage(p)} sx={{ my: 3 }} />
+      <Pagination count={totalPage} page={page} onChange={(_e, p) => setPage(p)} sx={{ my: 3 }} />
     </Box>
   );
 }

@@ -8,7 +8,7 @@ export const CommentFactory = Factory.define(Comment, async ({ faker }) => {
   };
 })
   .relation('likes', () => CommentLikeFactory)
-  .after('create', async (factory, model, ctx) => {
+  .after('create', async (_factory, model, ctx) => {
     await model.load('post');
     await model.post.load('comments');
     const comment = ctx.faker.helpers.arrayElement(model.post.comments);

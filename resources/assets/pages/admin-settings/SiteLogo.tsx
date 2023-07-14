@@ -7,7 +7,7 @@ import useOption from './useOption';
 
 export default function SiteLogo() {
   const { t } = useTranslation('admin');
-  const { value, save, saving, error } = useOption('site_logo');
+  const { value, save, saving } = useOption('site_logo');
   const [uploading, setUploading] = useState(false);
   return (
     <Box>

@@ -13,7 +13,7 @@ export const UserFactory = Factory.define(User, ({ faker }) => {
   };
 })
   .relation('posts', () => PostFactory)
-  .after('create', async (factory, model, ctx) => {
+  .after('create', async (_factory, model, ctx) => {
     const tags = await Tag.query()
       .orderByRaw('RAND()')
       .limit(ctx.faker.number.int({ min: 1, max: 5 }));
