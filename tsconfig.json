@@ -19,7 +19,6 @@
     "experimentalDecorators": true,
     "esModuleInterop": true,
     "outDir": "build",
-    "rootDir": "./",
     "sourceMap": true,
     "paths": {
       "App/*": ["./app/*"],
