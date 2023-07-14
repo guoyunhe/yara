@@ -76,7 +76,7 @@ export default function SubmitPage() {
                   : axios.post<Post>('/posts', data);
                 promise
                   .then((res) => {
-                    navigate(`/t/${tags[0].id || 'all'}/p/${res.data.id}`);
+                    navigate(tagId ? `/t/${tagId}/p/${res.data.id}` : `/p/${res.data.id}`);
                   })
                   .finally(() => {
                     setSubmitting(false);
