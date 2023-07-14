@@ -1,5 +1,6 @@
 import { useAuth, useLogout } from '@guoyunhe/react-auth';
 import {
+  AdminPanelSettings,
   Login as LoginIcon,
   Logout as LogoutIcon,
   PersonAdd as PersonAddIcon,
@@ -50,13 +51,21 @@ export default function LeftNav({ drawerOpen, onDrawerClose }: LeftNavProps) {
 
         {user ? (
           <>
-            <ListItemButton component={Link} to="/app">
+            <ListItemButton component={Link} to={`/u/${user.username}`}>
               <ListItemIcon>
                 <Avatar src={user.avatar?.url} sx={{ width: 24, height: 24 }} />
               </ListItemIcon>
               <ListItemText primary={user.name} />
             </ListItemButton>
-            <ListItemButton component={Link} to="/app/settings">
+            {user.role === 'admin' && (
+              <ListItemButton component={Link} to="/admin">
+                <ListItemIcon>
+                  <AdminPanelSettings />
+                </ListItemIcon>
+                <ListItemText primary={t('Admin Panel')} />
+              </ListItemButton>
+            )}
+            <ListItemButton component={Link} to="/settings">
               <ListItemIcon>
                 <SettingsIcon />
               </ListItemIcon>
