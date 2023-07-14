@@ -51,7 +51,6 @@ export default function LanguageCard() {
           <TextField
             label={t('Language')}
             select
-            name="locale"
             value={locale}
             onChange={(e) => {
               setLocale(e.target.value);

@@ -50,7 +50,6 @@ export default function PasswordCard() {
           <TextField
             label={t('Old password')}
             type="password"
-            name="password"
             value={oldPassword}
             onChange={(e) => {
               setOldPassword(e.target.value);
@@ -62,7 +61,6 @@ export default function PasswordCard() {
           <TextField
             label={t('New password')}
             type="password"
-            name="newPassword"
             value={password}
             onChange={(e) => {
               setPassword(e.target.value);
@@ -74,7 +72,6 @@ export default function PasswordCard() {
           <TextField
             label={t('Confirm password')}
             type="password"
-            name="newPasswordConfirm"
             value={passwordConfirm}
             onChange={(e) => {
               setPasswordConfirm(e.target.value);
