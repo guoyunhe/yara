@@ -1,4 +1,5 @@
-import { Avatar, Box, Button, TextField } from '@mui/material';
+import { Add, Delete, Save } from '@mui/icons-material';
+import { Avatar, Box, Button, ButtonBase, TextField } from '@mui/material';
 import axios from 'axios';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -8,18 +9,18 @@ import Tag from '../../types/models/Tag';
 
 export interface TagEditorProps {
   tag?: Tag;
-  onDone?: () => void;
+  reload?: () => void;
 }
 
-export default function TagEditor({ tag, onDone }: TagEditorProps) {
+export default function TagEditor({ tag, reload }: TagEditorProps) {
   const { t } = useTranslation('admin');
   const [icon, setIcon] = useState<Image | null>(tag?.icon || null);
   const [slug, setSlug] = useState(tag?.slug || '');
   const [name, setName] = useState(tag?.name || '');
 
   return (
-    <Box sx={{ display: 'flex' }}>
-      <label>
+    <Box sx={{ display: 'flex', my: 2 }}>
+      <ButtonBase component="label" sx={{ borderRadius: 99, mr: 2, my: -1 }}>
         <Avatar src={icon?.url} />
         <ImageUpload
           width={256}
@@ -29,29 +30,55 @@ export default function TagEditor({ tag, onDone }: TagEditorProps) {
             setIcon(image);
           }}
         />
-      </label>
-      <TextField label={t('Slug')} value={slug} onChange={(e) => setSlug(e.target.value)} />
-      <TextField label={t('Name')} value={name} onChange={(e) => setName(e.target.value)} />
+      </ButtonBase>
+      <TextField
+        label={t('Slug')}
+        value={slug}
+        onChange={(e) => setSlug(e.target.value)}
+        sx={{ mr: 2 }}
+      />
+      <TextField
+        label={t('Name')}
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        sx={{ flex: '1 1 auto', mr: 2 }}
+      />
       <Button
+        color="success"
+        variant="contained"
+        startIcon={tag ? <Save /> : <Add />}
         onClick={() => {
-          const data = { iconId: icon?.id, icon, slug, name };
+          const data = { iconId: icon?.id || null, icon, slug, name };
           if (tag) {
             axios.put(`/admin/tags/${tag.id}`, data).then(() => {
-              onDone?.();
+              reload?.();
             });
           } else {
             axios.post('/admin/tags', data).then(() => {
-              onDone?.();
+              reload?.();
               setIcon(null);
               setSlug('');
               setName('');
             });
           }
         }}
+        sx={{ mr: 2 }}
       >
         {tag ? t('Update') : t('Create')}
       </Button>
-      {tag && <Button>{t('Delete')}</Button>}
+      {tag && (
+        <Button
+          color="error"
+          startIcon={<Delete />}
+          onClick={() => {
+            axios.delete(`/admin/tags/${tag.id}`).then(() => {
+              reload?.();
+            });
+          }}
+        >
+          {t('Delete')}
+        </Button>
+      )}
     </Box>
   );
 }
