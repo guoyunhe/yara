@@ -34,7 +34,7 @@ export default class PostsController {
           ])
         ),
         search: schema.string.optional({ trim: true }),
-        page: schema.number.optional([rules.range(1, Infinity)]),
+        page: schema.number.optional([]),
         perPage: schema.number.optional([rules.range(5, 20)]),
       }),
     });
