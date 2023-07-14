@@ -12,9 +12,7 @@ export default function AppLayout() {
     <Box height="100vh" display="flex" flexDirection="column" overflow="hidden">
       <LeftNav drawerOpen={drawerOpen} onDrawerClose={() => setDrawerOpen(false)} />
       <TopNav onMenuButtonClick={() => setDrawerOpen((prev) => !prev)} />
-      <Box sx={{ flex: '1 1 auto', overflow: 'auto' }}>
-        <Outlet />
-      </Box>
+      <Outlet />
     </Box>
   );
 }

@@ -4,7 +4,7 @@ import PostList from './PostList';
 
 export default function PostListPage() {
   return (
-    <Box sx={{ display: 'flex', flex: '1 1 auto', overflow: 'auto' }}>
+    <Box sx={{ display: 'flex', flex: '1 1 auto', overflow: 'hidden' }}>
       <PostList />
       <Divider orientation="vertical" />
       <Outlet />
