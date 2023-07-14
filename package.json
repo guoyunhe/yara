@@ -3,7 +3,7 @@
   "scripts": {
     "dev": "node ace serve --watch",
     "test": "node ace test",
-    "build": "node --max-old-space-size=4096 ace build --production",
+    "build": "node ace build --production",
     "start": "node build/server.js",
     "lint": "eslint . --ext=.ts",
     "format": "prettier --write ."
