@@ -1,13 +1,13 @@
 import { Save } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
-import { Box, Container, Divider, Grid, Stack, TextField, Typography } from '@mui/material';
+import { Box, Container, Divider, Grid, TextField, Typography } from '@mui/material';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 import Markdown from '../../components/markdown';
-import TagChip from '../../components/tag-chip';
+import TagChips from '../../components/tag-chips';
 import TagSelect from '../../components/tag-select';
 import Post from '../../types/models/Post';
 import Tag from '../../types/models/Tag';
@@ -95,11 +95,7 @@ export default function SubmitPage() {
             <Typography variant="h1" sx={{ my: 3 }}>
               {t('Preview Post')}
             </Typography>
-            <Stack direction="row" spacing={1} sx={{ mb: 3 }}>
-              {tags.map((tag) => (
-                <TagChip key={tag.id} tag={tag} disabled />
-              ))}
-            </Stack>
+            <TagChips tags={tags} sx={{ mb: 3 }} />
             <Typography variant="h1" sx={{ mb: 3 }}>
               {title}
             </Typography>
