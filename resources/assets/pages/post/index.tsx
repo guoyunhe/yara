@@ -1,4 +1,4 @@
-import { useAuth, useRequireAuth } from '@guoyunhe/react-auth';
+import { AuthStatus, useAuth, useRequireAuth } from '@guoyunhe/react-auth';
 import { Close, Delete, Edit, Reply } from '@mui/icons-material';
 import { Box, Button, IconButton, LinearProgress, Stack, Typography } from '@mui/material';
 import axios from 'axios';
@@ -19,7 +19,7 @@ import CommentList from './CommentList';
 
 export default function PostPage() {
   const { t } = useTranslation();
-  const { user } = useAuth<User>();
+  const { user, status } = useAuth<User>();
   const requireAuth = useRequireAuth();
   const { postId, tagId } = useParams();
   const navigate = useNavigate();
@@ -59,7 +59,8 @@ export default function PostPage() {
     return <LinearProgress />;
   }
 
-  const canEdit = user?.id === post.userId || user?.role === 'admin';
+  const canEdit =
+    status === AuthStatus.LoggedIn && (user?.id === post.userId || user?.role === 'admin');
 
   return (
     <Box component="article" sx={{ flex: '1 1 auto', overflow: 'auto' }}>
@@ -95,7 +96,14 @@ export default function PostPage() {
           </Stack>
           <Markdown>{post.content}</Markdown>
           <Stack direction="row" mb={2}>
-            <Button startIcon={<Reply />} onClick={() => setCommentOpen(true)}>
+            <Button
+              startIcon={<Reply />}
+              onClick={() => {
+                if (requireAuth()) {
+                  setCommentOpen(true);
+                }
+              }}
+            >
               {t('Reply')} ({post.commentsCount})
             </Button>
             {canEdit && (

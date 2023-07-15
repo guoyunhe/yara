@@ -1,4 +1,4 @@
-import { useAuth, useRequireAuth } from '@guoyunhe/react-auth';
+import { AuthStatus, useAuth, useRequireAuth } from '@guoyunhe/react-auth';
 import { Delete, Edit, Reply } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
 import { Box, Button, Stack } from '@mui/material';
@@ -23,14 +23,15 @@ export interface CommentViewProps {
 
 function CommentView({ comment, children, onCreate, onUpdate, onDelete }: CommentViewProps) {
   const { t } = useTranslation();
-  const { user } = useAuth<User>();
+  const { user, status } = useAuth<User>();
   const requireAuth = useRequireAuth();
 
   const [replyOpen, setReplyOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
   const [deleting, setDeleting] = useState(false);
 
-  const canEdit = comment.userId === user?.id || user?.role === 'admin';
+  const canEdit =
+    status !== AuthStatus.LoggedIn && (comment.userId === user?.id || user?.role === 'admin');
 
   return (
     <Box display="flex">
@@ -65,7 +66,14 @@ function CommentView({ comment, children, onCreate, onUpdate, onDelete }: Commen
             <Box>
               <Markdown>{comment.content}</Markdown>
               <Stack direction="row" mb={2}>
-                <Button startIcon={<Reply />} onClick={() => setReplyOpen(true)}>
+                <Button
+                  startIcon={<Reply />}
+                  onClick={() => {
+                    if (requireAuth()) {
+                      setReplyOpen(true);
+                    }
+                  }}
+                >
                   {t('Reply')}
                 </Button>
                 {canEdit && (
