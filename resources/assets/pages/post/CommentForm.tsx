@@ -2,8 +2,9 @@ import { LoadingButton } from '@mui/lab';
 import { Box, Button, Stack, SxProps, TextField } from '@mui/material';
 import axios from 'axios';
 import { t } from 'i18next';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Comment from '../../types/models/Comment';
+import isElementInViewport from '../../utils/isElementInViewport';
 
 export interface CommentFormProps {
   comment?: Comment;
@@ -28,10 +29,17 @@ export default function CommentForm({
 }: CommentFormProps) {
   const [content, setContent] = useState('');
   const [submitting, setSubmitting] = useState(false);
+  const rootRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     if (open) {
       setContent(comment?.content || '');
+      // wait for for to fully render
+      setTimeout(() => {
+        if (rootRef.current && !isElementInViewport(rootRef.current)) {
+          rootRef.current.scrollIntoView(false);
+        }
+      }, 100);
     }
   }, [open]);
 
@@ -40,7 +48,7 @@ export default function CommentForm({
   }
 
   return (
-    <Box sx={sx}>
+    <Box ref={rootRef} sx={sx}>
       <TextField
         value={content}
         onChange={(e) => setContent(e.target.value)}
@@ -48,6 +56,7 @@ export default function CommentForm({
         multiline
         minRows={3}
         fullWidth
+        autoFocus
         sx={{ mb: 2 }}
       />
       <Stack direction="row" spacing={1}>
