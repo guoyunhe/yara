@@ -40,7 +40,6 @@ export default function TopNav({ onMenuButtonClick }: TopNavProps) {
         </Box>
         <Box flex="1 1 auto" />
         <CreatePostButton />
-        <PaletteModeIconButton />
         {auth.status === AuthStatus.LoggedIn && auth.user ? (
           <Stack direction="row">
             <Button
@@ -59,22 +58,20 @@ export default function TopNav({ onMenuButtonClick }: TopNavProps) {
             >
               {auth.user.name}
             </Button>
-            <Button
-              variant="text"
+            <IconButton
               color="inherit"
-              startIcon={<SettingsIcon />}
               component={Link}
               to="/settings"
               sx={{ display: { xs: 'none', sm: 'flex' } }}
             >
-              {t('Settings')}
-            </Button>
+              <SettingsIcon />
+            </IconButton>
             <LogoutButton />
           </Stack>
         ) : (
           <Stack direction="row">
+            <PaletteModeIconButton />
             <LanguageMenu />
-
             <Button
               variant="text"
               color="inherit"

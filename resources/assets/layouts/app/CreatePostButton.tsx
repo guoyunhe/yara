@@ -25,7 +25,7 @@ export default function CreatePostButton() {
         variant="contained"
         startIcon={<Add />}
         {...linkProps}
-        sx={{ display: { xs: 'none', md: 'inline-flex' } }}
+        sx={{ display: { xs: 'none', md: 'inline-flex' }, mr: 2 }}
       >
         {t('Create Post')}
       </Button>
