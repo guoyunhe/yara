@@ -1,4 +1,4 @@
-import { useAuth } from '@guoyunhe/react-auth';
+import { useAuth, useRequireAuth } from '@guoyunhe/react-auth';
 import { Delete, Edit, Reply } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
 import { Box, Button, Stack } from '@mui/material';
@@ -24,6 +24,7 @@ export interface CommentViewProps {
 function CommentView({ comment, children, onCreate, onUpdate, onDelete }: CommentViewProps) {
   const { t } = useTranslation();
   const { user } = useAuth<User>();
+  const requireAuth = useRequireAuth();
 
   const [replyOpen, setReplyOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
@@ -37,7 +38,9 @@ function CommentView({ comment, children, onCreate, onUpdate, onDelete }: Commen
         like={comment.likes?.[0]?.like}
         likesSum={comment.likesSum}
         onLike={(like) => {
-          axios.post(`/comments/${comment.id}/likes`, { like });
+          if (requireAuth()) {
+            axios.post(`/comments/${comment.id}/likes`, { like });
+          }
         }}
         sx={{ flex: '0 0 auto' }}
       />

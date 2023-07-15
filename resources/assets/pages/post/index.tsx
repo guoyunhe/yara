@@ -1,4 +1,4 @@
-import { useAuth } from '@guoyunhe/react-auth';
+import { useAuth, useRequireAuth } from '@guoyunhe/react-auth';
 import { Close, Delete, Edit, Reply } from '@mui/icons-material';
 import { Box, Button, IconButton, LinearProgress, Stack, Typography } from '@mui/material';
 import axios from 'axios';
@@ -20,6 +20,7 @@ import CommentList from './CommentList';
 export default function PostPage() {
   const { t } = useTranslation();
   const { user } = useAuth<User>();
+  const requireAuth = useRequireAuth();
   const { postId, tagId } = useParams();
   const navigate = useNavigate();
 
@@ -75,7 +76,9 @@ export default function PostPage() {
             like={post.likes?.[0]?.like}
             likesSum={post.likesSum}
             onLike={(like) => {
-              axios.post(`/posts/${post.id}/likes`, { like });
+              if (requireAuth()) {
+                axios.post(`/posts/${post.id}/likes`, { like });
+              }
             }}
             sx={{ mt: 6 }}
           />

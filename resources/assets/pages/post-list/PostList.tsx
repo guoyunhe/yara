@@ -1,3 +1,4 @@
+import { useRequireAuth } from '@guoyunhe/react-auth';
 import { Box, List, ListItemButton, ListItemText, Pagination } from '@mui/material';
 import axios from 'axios';
 import { useState } from 'react';
@@ -10,6 +11,7 @@ import Paginated from '../../types/Paginated';
 import Post from '../../types/models/Post';
 
 export default function PostList() {
+  const requireAuth = useRequireAuth();
   const { tagId = '', postId } = useParams();
   const [page, setPage] = useState(1);
   const { data: posts } = useFetch<Paginated<Post>>(`/posts?tagId=${tagId}&page=${page}`);
@@ -30,7 +32,9 @@ export default function PostList() {
               like={post.likes?.[0]?.like}
               likesSum={post.likesSum}
               onLike={(like) => {
-                axios.post(`/posts/${post.id}/likes`, { like });
+                if (requireAuth()) {
+                  axios.post(`/posts/${post.id}/likes`, { like });
+                }
               }}
               size="small"
               sx={{ ml: -2 }}
