@@ -14,7 +14,7 @@ export default function LoginPage() {
     <Stack spacing={3} p={3}>
       {errors?.message && <Alert severity="error">{errors?.message}</Alert>}
       <TextField
-        label={t('Email')}
+        label={t('Email or username')}
         type="email"
         name="email"
         value={email}

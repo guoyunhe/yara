@@ -9,7 +9,7 @@ export default class AuthController {
 
     try {
       const token = await auth.use('api').attempt(email, password);
-      const user = await User.findBy('email', email);
+      const user = await User.query().where('email', email).orWhere('username', email).first();
       await user?.load('avatar');
       await user?.load('tags', (q) => q.preload('icon'));
       return { token, user };
@@ -104,13 +104,15 @@ export default class AuthController {
 
     auth.user!.merge(data);
     await auth.user!.save();
-    await auth.user!.load('avatar');
     if (tags) {
       await auth.user!.related('tags').sync(tags?.map((tag) => tag.id));
     }
-    auth.user!.load('tags', (q) => {
+
+    await auth.user!.load('avatar');
+    await auth.user!.load('tags', (q) => {
       q.preload('icon');
     });
+
     return auth.user;
   }
 
