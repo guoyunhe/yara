@@ -1,5 +1,5 @@
 import { Translate as TranslateIcon } from '@mui/icons-material';
-import { Button, Menu, MenuItem } from '@mui/material';
+import { IconButton, Menu, MenuItem } from '@mui/material';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -17,17 +17,16 @@ export default function LanguageMenu() {
 
   return (
     <>
-      <Button
+      <IconButton
         id="lang-menu-button"
         aria-controls="lang-menu"
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
-        startIcon={<TranslateIcon />}
         color="inherit"
       >
-        {currentLang?.name}
-      </Button>
+        <TranslateIcon />
+      </IconButton>
       <Menu
         id="lang-menu"
         anchorEl={anchorEl}

@@ -1,4 +1,4 @@
-import { useAuth, useLogout } from '@guoyunhe/react-auth';
+import { AuthStatus, useAuth, useLogout } from '@guoyunhe/react-auth';
 import {
   AdminPanelSettings,
   Login as LoginIcon,
@@ -30,7 +30,7 @@ export interface LeftNavProps {
 
 export default function LeftNav({ drawerOpen, onDrawerClose }: LeftNavProps) {
   const { t } = useTranslation();
-  const { user } = useAuth<User>();
+  const { user, status } = useAuth<User>();
   const { data: tags = [] } = useFetch<Tag[]>('/tags');
   const logout = useLogout();
 
@@ -49,7 +49,7 @@ export default function LeftNav({ drawerOpen, onDrawerClose }: LeftNavProps) {
 
         <Divider />
 
-        {user ? (
+        {status === AuthStatus.LoggedIn && user ? (
           <>
             <ListItemButton component={Link} to={`/u/${user.username}`}>
               <ListItemIcon>

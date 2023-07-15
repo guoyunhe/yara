@@ -6,7 +6,7 @@ import {
   Settings as SettingsIcon,
 } from '@mui/icons-material';
 import { AppBar, Avatar, Box, Button, IconButton, Stack, Toolbar, Typography } from '@mui/material';
-import { PaletteModeButton } from 'mui-palette-mode';
+import { PaletteModeIconButton } from 'mui-palette-mode';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import LanguageMenu from '../../components/language-menu';
@@ -40,7 +40,7 @@ export default function TopNav({ onMenuButtonClick }: TopNavProps) {
         </Box>
         <Box flex="1 1 auto" />
         <CreatePostButton />
-        <PaletteModeButton />
+        <PaletteModeIconButton />
         {auth.status === AuthStatus.LoggedIn && auth.user ? (
           <Stack direction="row">
             <Button
