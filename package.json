@@ -59,6 +59,7 @@
     "mui-palette-mode": "^1.2.0",
     "pino-pretty": "^10.0.1",
     "prettier": "^2.8.8",
+    "prism-react-renderer": "^2.0.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-fast-fetch": "^1.1.0",
@@ -68,6 +69,7 @@
     "remark-gfm": "^3.0.1",
     "ts-loader": "^9.4.4",
     "typescript": "^5.1.6",
+    "use-editable": "^2.3.3",
     "webpack": "^5.88.1",
     "webpack-cli": "^4.10.0"
   },

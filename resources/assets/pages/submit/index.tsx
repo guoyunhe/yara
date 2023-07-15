@@ -7,6 +7,7 @@ import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 import Markdown from '../../components/markdown';
+import MarkdownCodeEditor from '../../components/markdown-code-editor';
 import TagChips from '../../components/tag-chips';
 import TagSelect from '../../components/tag-select';
 import Post from '../../types/models/Post';
@@ -53,15 +54,13 @@ export default function SubmitPage() {
               autoFocus
               sx={{ mb: 3 }}
             />
-            <TextField
-              label={t('Content')}
+
+            <MarkdownCodeEditor
               value={content}
-              onChange={(e) => setContent(e.target.value)}
-              fullWidth
-              multiline
-              minRows={5}
-              sx={{ mb: 3 }}
+              onChange={setContent}
+              sx={{ minHeight: 100, mb: 3 }}
             />
+
             <LoadingButton
               loading={submitting}
               loadingPosition="start"

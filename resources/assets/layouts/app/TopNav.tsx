@@ -58,6 +58,8 @@ export default function TopNav({ onMenuButtonClick }: TopNavProps) {
             >
               {auth.user.name}
             </Button>
+            <PaletteModeIconButton />
+            <LanguageMenu />
             <IconButton
               color="inherit"
               component={Link}
