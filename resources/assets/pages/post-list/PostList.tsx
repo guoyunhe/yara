@@ -15,7 +15,7 @@ export default function PostList() {
   const { data: posts } = useFetch<Paginated<Post>>(`/posts?tagId=${tagId}&page=${page}`);
   const totalPage = posts ? Math.ceil(posts.meta.total / posts.meta.perPage) : 1;
   return (
-    <Box sx={{ overflow: 'auto' }}>
+    <Box sx={{ overflow: 'auto', display: { xs: postId ? 'none' : 'block', md: 'block' } }}>
       <List dense disablePadding sx={{ flex: '0 0 300px', overflow: 'auto' }}>
         {posts?.data.map((post) => (
           <ListItemButton

@@ -1,6 +1,6 @@
 import { useAuth } from '@guoyunhe/react-auth';
-import { Delete, Edit, Reply } from '@mui/icons-material';
-import { Box, Button, LinearProgress, Stack, Typography } from '@mui/material';
+import { Close, Delete, Edit, Reply } from '@mui/icons-material';
+import { Box, Button, IconButton, LinearProgress, Stack, Typography } from '@mui/material';
 import axios from 'axios';
 import { useCallback, useEffect, useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
@@ -20,7 +20,7 @@ import CommentList from './CommentList';
 export default function PostPage() {
   const { t } = useTranslation();
   const { user } = useAuth<User>();
-  const { postId } = useParams();
+  const { postId, tagId } = useParams();
   const navigate = useNavigate();
 
   const {
@@ -62,6 +62,13 @@ export default function PostPage() {
 
   return (
     <Box component="article" sx={{ flex: '1 1 auto', overflow: 'auto' }}>
+      <IconButton
+        component={Link}
+        to={tagId ? `/t/${tagId}` : `/`}
+        sx={{ display: { xs: 'inline-block', md: 'none' } }}
+      >
+        <Close />
+      </IconButton>
       <Box component="header" sx={{ display: 'flex' }}>
         <Box sx={{ flex: '0 0 auto' }}>
           <Liker
