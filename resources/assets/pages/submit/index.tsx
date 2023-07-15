@@ -95,7 +95,7 @@ export default function SubmitPage() {
             <Typography variant="h1" sx={{ my: 3 }}>
               {t('Preview Post')}
             </Typography>
-            <TagChips tags={tags} sx={{ mb: 3 }} />
+            <TagChips tags={tags} disabled sx={{ mb: 3 }} />
             <Typography variant="h1" sx={{ mb: 3 }}>
               {title}
             </Typography>

@@ -9,7 +9,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import Liker from '../../components/liker';
 import Markdown from '../../components/markdown';
 import RelativeTime from '../../components/relative-time';
-import TagChip from '../../components/tag-chip';
+import TagChips from '../../components/tag-chips';
 import UserBrief from '../../components/user-brief';
 import Comment from '../../types/models/Comment';
 import Post from '../../types/models/Post';
@@ -75,11 +75,7 @@ export default function PostPage() {
         </Box>
 
         <Box sx={{ flex: '1 1 auto', pr: 2, maxWidth: 816 }}>
-          <Stack direction="row" spacing={1} sx={{ my: 3 }}>
-            {post.tags.map((tag) => (
-              <TagChip key={tag.id} tag={tag} />
-            ))}
-          </Stack>
+          <TagChips tags={post.tags} sx={{ my: 3 }} />
           <Typography variant="h1" mb={2}>
             {post.title}
           </Typography>

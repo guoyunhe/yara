@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 import ImageUpload from '../../components/image-upload';
 import Markdown from '../../components/markdown';
-import TagChip from '../../components/tag-chip';
+import TagChips from '../../components/tag-chips';
 import TagSelect from '../../components/tag-select';
 import Image from '../../types/models/Image';
 import Tag from '../../types/models/Tag';
@@ -129,15 +129,7 @@ export default function ProfilePage() {
             )}
           </Stack>
         </Box>
-        {editMode ? (
-          <TagSelect value={tags} onChange={setTags} />
-        ) : (
-          <Stack direction="row" spacing={1}>
-            {tags?.map((tag) => (
-              <TagChip key={tag.id} tag={tag} />
-            ))}
-          </Stack>
-        )}
+        {editMode ? <TagSelect value={tags} onChange={setTags} /> : <TagChips tags={tags} />}
       </Box>
       <Box>
         {editMode ? (
