@@ -6,7 +6,7 @@
   "Privacy": "隐私",
   "About": "关于",
   "Tags": "标签",
-  "Create Post": "发帖",
+  "Create Post": "发表帖子",
   "Admin Panel": "管理员面板",
   "Settings": "设置",
   "Logout": "注销",
@@ -34,6 +34,8 @@
   "Old password": "旧密码",
   "New password": "新密码",
   "Profile": "资料",
+  "Update Post": "更新帖子",
   "Title": "标题",
-  "Content": "内容"
+  "Content": "内容",
+  "Preview Post": "预览帖子"
 }

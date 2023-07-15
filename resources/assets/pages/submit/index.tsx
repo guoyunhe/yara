@@ -1,6 +1,6 @@
 import { Save } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
-import { Box, Container, Grid, Stack, TextField, Typography } from '@mui/material';
+import { Box, Container, Divider, Grid, Stack, TextField, Typography } from '@mui/material';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
@@ -40,8 +40,11 @@ export default function SubmitPage() {
     <Box>
       <Container>
         <Grid container spacing={3}>
-          <Grid item md={6}>
-            <TagSelect value={tags} onChange={setTags} sx={{ my: 3 }} />
+          <Grid item xs={12} md={6}>
+            <Typography variant="h1" sx={{ my: 3 }}>
+              {post ? t('Update Post') : t('Create Post')}
+            </Typography>
+            <TagSelect value={tags} onChange={setTags} sx={{ mb: 3 }} />
             <TextField
               label={t('Title')}
               value={title}
@@ -87,10 +90,14 @@ export default function SubmitPage() {
               {t('Submit')}
             </LoadingButton>
           </Grid>
-          <Grid item md={6}>
-            <Stack direction="row" spacing={1} sx={{ my: 3 }}>
+          <Grid item xs={12} md={6}>
+            <Divider sx={{ display: { xs: 'block', md: 'none' } }} />
+            <Typography variant="h1" sx={{ my: 3 }}>
+              {t('Preview Post')}
+            </Typography>
+            <Stack direction="row" spacing={1} sx={{ mb: 3 }}>
               {tags.map((tag) => (
-                <TagChip key={tag.id} tag={tag} />
+                <TagChip key={tag.id} tag={tag} disabled />
               ))}
             </Stack>
             <Typography variant="h1" sx={{ mb: 3 }}>
