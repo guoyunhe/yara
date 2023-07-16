@@ -9,7 +9,7 @@ import isElementInViewport from '../../utils/isElementInViewport';
 export interface CommentFormProps {
   comment?: Comment;
   open: boolean;
-  onClose: () => void;
+  onClose?: () => void;
   onCreate?: (comment: Comment) => void;
   onUpdate?: (comment: Comment) => void;
   postId: number | string | null;
@@ -63,6 +63,7 @@ export default function CommentForm({
         <LoadingButton
           loading={submitting}
           variant="contained"
+          disabled={content.trim().length === 0}
           onClick={() => {
             setSubmitting(true);
             if (comment) {
@@ -70,7 +71,7 @@ export default function CommentForm({
                 .put<Comment>(`/posts/${postId}/comments/${comment.id}`, { content })
                 .then((res) => {
                   onUpdate?.(res.data);
-                  onClose();
+                  onClose?.();
                 })
                 .finally(() => {
                   setSubmitting(false);
@@ -80,7 +81,7 @@ export default function CommentForm({
                 .post<Comment>(`/posts/${postId}/comments`, { content, parentId })
                 .then((res) => {
                   onCreate?.(res.data);
-                  onClose();
+                  onClose?.();
                 })
                 .finally(() => {
                   setSubmitting(false);
@@ -90,9 +91,11 @@ export default function CommentForm({
         >
           {t('Submit')}
         </LoadingButton>
-        <Button color="inherit" onClick={() => onClose()}>
-          {t('Cancel')}
-        </Button>
+        {onClose && (
+          <Button color="inherit" onClick={() => onClose?.()}>
+            {t('Cancel')}
+          </Button>
+        )}
       </Stack>
     </Box>
   );

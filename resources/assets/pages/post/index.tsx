@@ -39,7 +39,6 @@ export default function PostPage() {
     loading: postLoading,
   } = useFetch<Post>(`/posts/${postId}`);
 
-  const [commentOpen, setCommentOpen] = useState(false);
   const [newComments, setNewComments] = useState<Comment[]>([]);
 
   useEffect(() => {
@@ -113,14 +112,7 @@ export default function PostPage() {
           <Markdown>{post.content}</Markdown>
           <Divider sx={{ mt: 3, mb: 1 }} />
           <Stack direction="row" divider={<Divider />}>
-            <Button
-              startIcon={<Reply />}
-              onClick={() => {
-                if (requireAuth()) {
-                  setCommentOpen(true);
-                }
-              }}
-            >
+            <Button startIcon={<Reply />}>
               {t('Reply')} ({post.commentsCount})
             </Button>
             {canEdit && (
@@ -145,17 +137,23 @@ export default function PostPage() {
             )}
           </Stack>
           <Divider sx={{ mt: 1, mb: 3 }} />
+          <Box
+            onClick={() => {
+              requireAuth();
+            }}
+          >
+            <CommentForm
+              postId={post.id}
+              open
+              onCreate={(comment) => {
+                setNewComments((prev) => [comment, ...prev]);
+              }}
+              sx={{ mb: 3 }}
+            />
+          </Box>
         </Box>
       </Box>
-      <CommentForm
-        postId={post.id}
-        open={commentOpen}
-        onClose={() => setCommentOpen(false)}
-        onCreate={(comment) => {
-          setNewComments((prev) => [comment, ...prev]);
-        }}
-        sx={{ pl: 8, pr: 2, mb: 3 }}
-      />
+
       <CommentList
         comments={newComments}
         parentId={null}
