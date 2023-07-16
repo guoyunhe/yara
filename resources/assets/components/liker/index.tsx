@@ -1,6 +1,6 @@
-import { ArrowDropDown, ArrowDropUp } from '@mui/icons-material';
+import { ArrowDownward, ArrowUpward } from '@mui/icons-material';
 import { Box, IconButton, Stack, SxProps } from '@mui/material';
-import { memo, useEffect, useState } from 'react';
+import { MouseEventHandler, memo, useEffect, useState } from 'react';
 
 const fontSizeDict: Record<string, number> = {
   small: 12,
@@ -12,11 +12,12 @@ export interface LikerProps {
   like?: number | null;
   size?: 'small' | 'medium' | 'large';
   likesSum?: number | null;
+  onClick?: MouseEventHandler<HTMLDivElement>;
   onLike?: (like: number) => void;
   sx?: SxProps;
 }
 
-function Liker({ like = 0, size = 'medium', likesSum, onLike, sx }: LikerProps) {
+function Liker({ like = 0, size = 'medium', likesSum, onLike, onClick, sx }: LikerProps) {
   const fontSize = fontSizeDict[size];
   const [likeState, setLikeState] = useState(like || 0);
 
@@ -25,7 +26,7 @@ function Liker({ like = 0, size = 'medium', likesSum, onLike, sx }: LikerProps) 
   }, [like]);
 
   return (
-    <Stack sx={{ alignItems: 'center', minWidth: fontSize * 4, ...sx }}>
+    <Stack onClick={onClick} sx={{ alignItems: 'center', minWidth: fontSize * 4, ...sx }}>
       <IconButton
         color={likeState > 0 ? 'success' : 'inherit'}
         size={size}
@@ -34,7 +35,7 @@ function Liker({ like = 0, size = 'medium', likesSum, onLike, sx }: LikerProps) 
           onLike?.(likeState === 1 ? 0 : 1);
         }}
       >
-        <ArrowDropUp sx={{ width: fontSize * 2, height: fontSize * 2 }} />
+        <ArrowUpward />
       </IconButton>
       <Box sx={{ fontSize }}>{(likesSum || 0) - (like || 0) + likeState}</Box>
       <IconButton
@@ -45,7 +46,7 @@ function Liker({ like = 0, size = 'medium', likesSum, onLike, sx }: LikerProps) 
           onLike?.(likeState === -1 ? 0 : -1);
         }}
       >
-        <ArrowDropDown sx={{ width: fontSize * 2, height: fontSize * 2 }} />
+        <ArrowDownward />
       </IconButton>
     </Stack>
   );

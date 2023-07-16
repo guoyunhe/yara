@@ -23,7 +23,7 @@ export default function TopNav({ onMenuButtonClick }: TopNavProps) {
   const auth = useAuth<User>();
 
   return (
-    <AppBar position="static" color="transparent">
+    <AppBar position="static" color="transparent" sx={{ zIndex: 1 }}>
       <Toolbar>
         <IconButton color="inherit" edge="start" onClick={onMenuButtonClick}>
           <MenuIcon />

@@ -1,17 +1,12 @@
-import { useRequireAuth } from '@guoyunhe/react-auth';
-import { Box, List, ListItemButton, ListItemText, Pagination } from '@mui/material';
-import axios from 'axios';
+import { Box, Pagination } from '@mui/material';
 import { useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
-import { Link, useParams } from 'react-router-dom';
-import Liker from '../../components/liker';
-import RelativeTime from '../../components/relative-time';
-import UserBrief from '../../components/user-brief';
+import { useParams } from 'react-router-dom';
 import Paginated from '../../types/Paginated';
 import Post from '../../types/models/Post';
+import PostCard from './PostCard';
 
 export default function PostList() {
-  const requireAuth = useRequireAuth();
   const { tagId = '', postId } = useParams();
   const [page, setPage] = useState(1);
   const { data: posts } = useFetch<Paginated<Post>>(`/posts?tagId=${tagId}&page=${page}`);
@@ -20,50 +15,15 @@ export default function PostList() {
     <Box
       sx={{
         display: { xs: postId ? 'none' : 'block', md: 'block' },
-        maxWidth: { md: postId ? 600 : undefined },
-        flex: '1 1 auto',
+        maxWidth: { md: postId ? 400 : undefined }, // limit width only in desktop two-column layout
+        flex: '4 4 40%',
         overflow: 'auto',
       }}
     >
       <Box sx={{ maxWidth: 632, mx: 'auto', p: { xs: 0, md: 2 } }}>
-        <List dense disablePadding>
-          {posts?.data.map((post) => (
-            <ListItemButton
-              key={post.id}
-              divider
-              selected={postId === post.id.toString()}
-              component={Link}
-              to={tagId ? `/t/${tagId}/p/${post.id}` : `/p/${post.id}`}
-              sx={{ alignItems: 'stretch' }}
-            >
-              <Liker
-                like={post.likes?.[0]?.like}
-                likesSum={post.likesSum}
-                onLike={(like) => {
-                  if (requireAuth()) {
-                    axios.post(`/posts/${post.id}/likes`, { like });
-                  }
-                }}
-                size="small"
-                sx={{ ml: -2 }}
-              />
-              <ListItemText
-                primary={post.title}
-                primaryTypographyProps={{ flex: '1 1 auto' }}
-                secondary={
-                  <Box component="span" display="flex">
-                    <UserBrief user={post.user} disabled />
-                    <Box component="span" flexGrow="1" />
-                    <Box component="span">
-                      <RelativeTime date={post.createdAt} />
-                    </Box>
-                  </Box>
-                }
-                sx={{ display: 'flex', flexDirection: 'column' }}
-              />
-            </ListItemButton>
-          ))}
-        </List>
+        {posts?.data.map((post) => (
+          <PostCard key={post.id} post={post} sx={{ mb: 2 }} />
+        ))}
         <Pagination count={totalPage} page={page} onChange={(_e, p) => setPage(p)} sx={{ my: 3 }} />
       </Box>
     </Box>

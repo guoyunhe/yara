@@ -1,6 +1,6 @@
 import { AuthStatus, useAuth, useRequireAuth } from '@guoyunhe/react-auth';
 import { Close, Delete, Edit, Reply } from '@mui/icons-material';
-import { Box, Button, IconButton, LinearProgress, Stack, Typography } from '@mui/material';
+import { Box, Button, CircularProgress, IconButton, Stack, Typography } from '@mui/material';
 import axios from 'axios';
 import { useCallback, useEffect, useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
@@ -56,14 +56,21 @@ export default function PostPage() {
   );
 
   if (!post || postLoading) {
-    return <LinearProgress />;
+    return (
+      <Box
+        component="article"
+        sx={{ flex: '6 6 60%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+      >
+        <CircularProgress />
+      </Box>
+    );
   }
 
   const canEdit =
     status === AuthStatus.LoggedIn && (user?.id === post.userId || user?.role === 'admin');
 
   return (
-    <Box component="article" sx={{ flex: '1 1 auto', overflow: 'auto' }}>
+    <Box component="article" sx={{ flex: '6 6 60%', overflow: 'auto' }}>
       <IconButton
         component={Link}
         to={tagId ? `/t/${tagId}` : `/`}
