@@ -4,17 +4,17 @@ import { Box, Button, Card, CardActions, CardContent, CardHeader, SxProps } from
 import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
 import Liker from '../../components/liker';
-import Markdown from '../../components/markdown';
 import RelativeTime from '../../components/relative-time';
 import UserBrief from '../../components/user-brief';
 import Post from '../../types/models/Post';
 
 export interface PostCardProps {
   post: Post;
+  excerptLength?: number;
   sx?: SxProps;
 }
 
-export default function PostCard({ post, sx }: PostCardProps) {
+export default function PostCard({ post, excerptLength = 255, sx }: PostCardProps) {
   const requireAuth = useRequireAuth();
 
   const { tagId, postId } = useParams();
@@ -61,7 +61,7 @@ export default function PostCard({ post, sx }: PostCardProps) {
           sx={{ pl: 0 }}
         />
         <CardContent sx={{ pl: 0, py: 0 }}>
-          <Markdown>{post.content}</Markdown>
+          {post.content.substring(0, excerptLength)} {post.content.length > excerptLength && '...'}
         </CardContent>
         <CardActions sx={{ pl: 0 }}>
           <Button startIcon={<CommentIcon />} color="inherit">
