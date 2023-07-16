@@ -47,7 +47,7 @@ function CommentView({ comment, children, onCreate, onUpdate, onDelete }: Commen
       />
       <Box flex="1 1 auto">
         <Box pr={2} maxWidth={816}>
-          <Stack direction="row" spacing={1} mt={1} mb={2}>
+          <Stack direction="row" spacing={2} mb={1}>
             <UserBrief user={comment.user} avatarSize={32} />
             <RelativeTime date={comment.createdAt} />
           </Stack>

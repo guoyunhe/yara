@@ -26,7 +26,7 @@ function Liker({ like = 0, size = 'medium', likesSum, onLike, onClick, sx }: Lik
   }, [like]);
 
   return (
-    <Stack onClick={onClick} sx={{ alignItems: 'center', minWidth: fontSize * 4, ...sx }}>
+    <Stack onClick={onClick} sx={{ alignItems: 'center', ...sx }}>
       <IconButton
         color={likeState > 0 ? 'success' : 'inherit'}
         size={size}

@@ -1,6 +1,7 @@
 import { useRequireAuth } from '@guoyunhe/react-auth';
 import { Comment as CommentIcon } from '@mui/icons-material';
 import { Box, Button, Card, CardActions, CardContent, CardHeader, SxProps } from '@mui/material';
+import { blue } from '@mui/material/colors';
 import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
 import Liker from '../../components/liker';
@@ -22,13 +23,13 @@ export default function PostCard({ post, excerptLength = 255, sx }: PostCardProp
   return (
     <Card
       variant="outlined"
-      raised={postId === post.id.toString()}
       component={Link}
       to={tagId ? `/t/${tagId}/p/${post.id}` : `/p/${post.id}`}
       sx={{
         display: 'flex',
         overflow: 'hidden',
         textDecoration: 'none',
+        borderColor: postId === post.id.toString() ? blue[400] : undefined,
         ...sx,
       }}
     >

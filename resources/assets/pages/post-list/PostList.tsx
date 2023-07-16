@@ -15,7 +15,7 @@ export default function PostList() {
     <Box
       sx={{
         display: { xs: postId ? 'none' : 'block', md: 'block' },
-        maxWidth: { md: postId ? 400 : undefined }, // limit width only in desktop two-column layout
+        maxWidth: { md: postId ? 432 : undefined }, // limit width only in desktop two-column layout
         flex: '4 4 40%',
         overflow: 'auto',
       }}
