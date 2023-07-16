@@ -16,6 +16,7 @@ import Post from '../../types/models/Post';
 import User from '../../types/models/User';
 import CommentForm from './CommentForm';
 import CommentList from './CommentList';
+import PostShareButton from './PostShareButton';
 
 export default function PostPage() {
   const { t } = useTranslation();
@@ -118,6 +119,7 @@ export default function PostPage() {
                 {t('Edit')}
               </Button>
             )}
+            <PostShareButton post={post} />
             {canEdit && (
               <Button
                 color="error"

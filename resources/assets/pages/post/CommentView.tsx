@@ -31,10 +31,10 @@ function CommentView({ comment, children, onCreate, onUpdate, onDelete }: Commen
   const [deleting, setDeleting] = useState(false);
 
   const canEdit =
-    status !== AuthStatus.LoggedIn && (comment.userId === user?.id || user?.role === 'admin');
+    status === AuthStatus.LoggedIn && (comment.userId === user?.id || user?.role === 'admin');
 
   return (
-    <Box display="flex">
+    <Box id={`comment-${comment.id}`} display="flex">
       <Liker
         like={comment.likes?.[0]?.like}
         likesSum={comment.likesSum}

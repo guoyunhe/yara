@@ -21,6 +21,7 @@
   "Reply": "Reply",
   "Edit": "Edit",
   "Delete": "Delete",
+  "Share": "Share",
   "Save": "Save",
   "Name": "Name",
   "Username": "Username",
@@ -37,6 +38,5 @@
   "Profile": "Profile",
   "Update Post": "Update Post",
   "Title": "Title",
-  "Content": "Content",
   "Preview Post": "Preview Post"
 }

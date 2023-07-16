@@ -21,6 +21,7 @@
   "Reply": "回复",
   "Edit": "编辑",
   "Delete": "删除",
+  "Share": "分享",
   "Save": "保存",
   "Name": "姓名",
   "Username": "用户名",
@@ -37,6 +38,5 @@
   "Profile": "资料",
   "Update Post": "更新帖子",
   "Title": "标题",
-  "Content": "内容",
   "Preview Post": "预览帖子"
 }
