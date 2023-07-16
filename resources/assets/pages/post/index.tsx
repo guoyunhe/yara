@@ -1,6 +1,14 @@
 import { AuthStatus, useAuth, useRequireAuth } from '@guoyunhe/react-auth';
 import { Close, Delete, Edit, Reply } from '@mui/icons-material';
-import { Box, Button, CircularProgress, IconButton, Stack, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Divider,
+  IconButton,
+  Stack,
+  Typography,
+} from '@mui/material';
 import axios from 'axios';
 import { useCallback, useEffect, useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
@@ -103,7 +111,8 @@ export default function PostPage() {
             <RelativeTime date={post.createdAt} />
           </Stack>
           <Markdown>{post.content}</Markdown>
-          <Stack direction="row" mb={2}>
+          <Divider sx={{ mt: 3, mb: 1 }} />
+          <Stack direction="row" divider={<Divider />}>
             <Button
               startIcon={<Reply />}
               onClick={() => {
@@ -135,6 +144,7 @@ export default function PostPage() {
               </Button>
             )}
           </Stack>
+          <Divider sx={{ mt: 1, mb: 3 }} />
         </Box>
       </Box>
       <CommentForm
