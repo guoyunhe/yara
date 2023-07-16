@@ -1,16 +1,23 @@
 import { Box, SxProps } from '@mui/material';
+import { blue } from '@mui/material/colors';
 import { usePaletteMode } from 'mui-palette-mode';
 import { Highlight, themes } from 'prism-react-renderer';
-import { Fragment, useCallback, useRef } from 'react';
-import { useEditable } from 'use-editable';
+import { Fragment, MutableRefObject, useCallback, useRef } from 'react';
+import { Edit, useEditable } from 'use-editable';
 
 export interface MarkdownCodeEditorProps {
+  editRef?: MutableRefObject<Edit>;
   value: string;
   onChange?: (value: string) => void;
   sx?: SxProps;
 }
 
-export default function MarkdownCodeEditor({ value, onChange, sx }: MarkdownCodeEditorProps) {
+export default function MarkdownCodeEditor({
+  editRef,
+  value,
+  onChange,
+  sx,
+}: MarkdownCodeEditorProps) {
   const { paletteMode } = usePaletteMode();
   const editorRef = useRef(null);
 
@@ -21,10 +28,14 @@ export default function MarkdownCodeEditor({ value, onChange, sx }: MarkdownCode
     [onChange]
   );
 
-  useEditable(editorRef, onEditableChange, {
+  const edit = useEditable(editorRef, onEditableChange, {
     disabled: false,
     indentation: 2,
   });
+
+  if (editRef) {
+    editRef.current = edit;
+  }
 
   return (
     <Highlight
@@ -36,7 +47,29 @@ export default function MarkdownCodeEditor({ value, onChange, sx }: MarkdownCode
         <Box
           component="pre"
           className={className}
-          sx={{ ...style, margin: 0, p: 2, borderRadius: 1, outline: 'none', ...sx }}
+          sx={{
+            ...style,
+            margin: 0,
+            padding: '13px',
+            borderRadius: 1,
+            borderWidth: 1,
+            borderStyle: 'solid',
+            borderColor: (theme) =>
+              theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.23)' : 'rgba(0, 0, 0, 0.23)',
+            backgroundColor: undefined,
+            color: 'inherit',
+            outline: 'none',
+            '&:hover': {
+              borderColor: (theme) =>
+                theme.palette.mode === 'dark' ? '#fff' : 'rgba(0, 0, 0, 0.87)',
+            },
+            '&:focus': {
+              borderColor: (theme) => (theme.palette.mode === 'dark' ? blue[200] : blue[700]),
+              borderWidth: 2,
+              padding: '12px',
+            },
+            ...sx,
+          }}
           ref={editorRef}
           autoCorrect="off"
           autoCapitalize="off"
