@@ -102,16 +102,20 @@ export default function PostPage() {
 
         <Box sx={{ flex: '1 1 auto', pr: 2, maxWidth: 816 }}>
           <TagChips tags={post.tags} sx={{ my: 3 }} />
+
           <Typography variant="h1" mb={2}>
             {post.title}
           </Typography>
+
           <Stack direction="row" spacing={2}>
             <UserBrief user={post.user} avatarSize={32} />
             <RelativeTime date={post.createdAt} />
           </Stack>
+
           <Markdown>{post.content}</Markdown>
+
           <Divider sx={{ mt: 3, mb: 1 }} />
-          <Stack direction="row" divider={<Divider />}>
+          <Stack direction="row">
             <Button startIcon={<Reply />}>
               {t('Reply')} ({post.commentsCount})
             </Button>
