@@ -10,7 +10,7 @@ import {
   Typography,
 } from '@mui/material';
 import axios from 'axios';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate, useParams } from 'react-router-dom';
@@ -22,6 +22,7 @@ import UserBrief from '../../components/user-brief';
 import Comment from '../../types/models/Comment';
 import Post from '../../types/models/Post';
 import User from '../../types/models/User';
+import isElementInViewport from '../../utils/isElementInViewport';
 import CommentForm from './CommentForm';
 import CommentList from './CommentList';
 import PostShareButton from './PostShareButton';
@@ -32,6 +33,7 @@ export default function PostPage() {
   const requireAuth = useRequireAuth();
   const { postId, tagId } = useParams();
   const navigate = useNavigate();
+  const commentFormContainerRef = useRef<HTMLElement>(null);
 
   const {
     data: post,
@@ -116,7 +118,19 @@ export default function PostPage() {
 
           <Divider sx={{ mt: 3, mb: 1 }} />
           <Stack direction="row">
-            <Button startIcon={<Reply />}>
+            <Button
+              startIcon={<Reply />}
+              onClick={() => {
+                if (requireAuth()) {
+                  if (commentFormContainerRef.current) {
+                    commentFormContainerRef.current.querySelector('textarea')?.focus();
+                    if (!isElementInViewport(commentFormContainerRef.current)) {
+                      commentFormContainerRef.current.scrollIntoView(false);
+                    }
+                  }
+                }
+              }}
+            >
               {t('Reply')} ({post.commentsCount})
             </Button>
             {canEdit && (
@@ -142,13 +156,13 @@ export default function PostPage() {
           </Stack>
           <Divider sx={{ mt: 1, mb: 3 }} />
           <Box
+            ref={commentFormContainerRef}
             onClick={() => {
               requireAuth();
             }}
           >
             <CommentForm
               postId={post.id}
-              open
               onCreate={(comment) => {
                 setNewComments((prev) => [comment, ...prev]);
               }}
