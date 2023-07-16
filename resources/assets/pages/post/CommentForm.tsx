@@ -34,7 +34,7 @@ export default function CommentForm({
   useEffect(() => {
     if (open) {
       setContent(comment?.content || '');
-      // wait for for to fully render
+      // wait for form to fully render
       setTimeout(() => {
         if (rootRef.current && !isElementInViewport(rootRef.current)) {
           rootRef.current.scrollIntoView(false);
