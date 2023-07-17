@@ -9,7 +9,9 @@ import PostCard from './PostCard';
 export default function PostList() {
   const { tagId = '', postId } = useParams();
   const [page, setPage] = useState(1);
-  const { data: posts } = useFetch<Paginated<Post>>(`/posts?tagId=${tagId}&page=${page}`);
+  const { data: posts } = useFetch<Paginated<Post>>(
+    `/posts?${Number.isInteger(Number(tagId)) ? `tagId` : `tagSlug`}=${tagId}&page=${page}`
+  );
   const totalPage = posts ? Math.ceil(posts.meta.total / posts.meta.perPage) : 1;
   return (
     <Box

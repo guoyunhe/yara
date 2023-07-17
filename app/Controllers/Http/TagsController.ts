@@ -22,7 +22,10 @@ export default class TagsController {
   }
 
   public async show({ request, response }: HttpContextContract) {
-    const tag = await Tag.find(request.param('id'));
+    const tag = await Tag.query()
+      .where('id', request.param('id'))
+      .orWhere('slug', request.param('id'))
+      .first();
     if (!tag) {
       return response.notFound();
     }

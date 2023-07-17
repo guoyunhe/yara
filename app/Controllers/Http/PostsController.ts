@@ -7,7 +7,7 @@ export default class PostsController {
     const {
       userId,
       tagId,
-      tagIds,
+      tagSlug,
       search,
       page = 1,
       perPage = 10,
@@ -25,14 +25,12 @@ export default class PostsController {
             column: 'id',
           }),
         ]),
-        tagIds: schema.array.optional().members(
-          schema.number([
-            rules.exists({
-              table: 'tags',
-              column: 'id',
-            }),
-          ])
-        ),
+        tagSlug: schema.string.optional([
+          rules.exists({
+            table: 'tags',
+            column: 'slug',
+          }),
+        ]),
         search: schema.string.optional({ trim: true }),
         page: schema.number.optional([]),
         perPage: schema.number.optional([rules.range(5, 20)]),
@@ -71,11 +69,9 @@ export default class PostsController {
       });
     }
 
-    if (tagIds) {
-      tagIds.forEach((id) => {
-        query.whereHas('tags', (q) => {
-          q.where('tags.id', id);
-        });
+    if (tagSlug) {
+      query.whereHas('tags', (q) => {
+        q.where('tags.slug', tagSlug);
       });
     }
 
