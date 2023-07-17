@@ -2,7 +2,7 @@ import { LoadingButton } from '@mui/lab';
 import { Box, Button, Stack, SxProps, TextField } from '@mui/material';
 import axios from 'axios';
 import { t } from 'i18next';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Comment from '../../types/models/Comment';
 
 export interface CommentFormProps {
@@ -24,8 +24,12 @@ export default function CommentForm({
   onUpdate,
   sx,
 }: CommentFormProps) {
-  const [content, setContent] = useState('');
+  const [content, setContent] = useState(comment?.content || '');
   const [submitting, setSubmitting] = useState(false);
+
+  useEffect(() => {
+    setContent(comment?.content || '');
+  }, [comment?.content]);
 
   return (
     <Box sx={sx}>
@@ -50,6 +54,7 @@ export default function CommentForm({
                 .put<Comment>(`/posts/${postId}/comments/${comment.id}`, { content })
                 .then((res) => {
                   onUpdate?.(res.data);
+                  setContent(res.data.content);
                   onClose?.();
                 })
                 .finally(() => {
