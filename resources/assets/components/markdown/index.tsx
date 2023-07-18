@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Link, Typography } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { ComponentType, memo } from 'react';
 import ReactMarkdown from 'react-markdown';
@@ -22,6 +22,7 @@ const components: Record<string, ComponentType> = {
       {...props}
     />
   ),
+  a: Link,
 };
 
 export interface MarkdownProps {
