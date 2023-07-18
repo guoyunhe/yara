@@ -17,16 +17,18 @@ export default function DeleteButton({ url, onSucceed, onFail, ...props }: Delet
   const [deleting, setDeleting] = useState(false);
 
   return (
-    <LoadingButton
-      {...props}
-      loading={deleting}
-      color="error"
-      startIcon={<Delete />}
-      onClick={() => {
-        setOpen(true);
-      }}
-    >
-      {t('Delete')}
+    <>
+      <LoadingButton
+        {...props}
+        loading={deleting}
+        color="error"
+        startIcon={<Delete />}
+        onClick={() => {
+          setOpen(true);
+        }}
+      >
+        {t('Delete')}
+      </LoadingButton>
       <Dialog onClose={() => setOpen(false)} open={open}>
         <DialogTitle>{t('Delete confirm')}</DialogTitle>
         <DialogActions>
@@ -45,9 +47,9 @@ export default function DeleteButton({ url, onSucceed, onFail, ...props }: Delet
           >
             {t('OK')}
           </Button>
-          <Button>{t('Cancel')}</Button>
+          <Button onClick={() => setOpen(false)}>{t('Cancel')}</Button>
         </DialogActions>
       </Dialog>
-    </LoadingButton>
+    </>
   );
 }
