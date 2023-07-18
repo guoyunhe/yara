@@ -1,8 +1,8 @@
 import { RedirectAfterAuth } from '@guoyunhe/react-auth';
-import { ArrowBack } from '@mui/icons-material';
-import { AppBar, Box, Button, Paper, Tab, Tabs, Toolbar } from '@mui/material';
+import { Box, Paper, Tab, Tabs, Toolbar } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import BackIconButton from '../../components/back-icon-button';
 
 // Layout for login and register page.
 export default function AuthLayout() {
@@ -11,14 +11,10 @@ export default function AuthLayout() {
   const { t } = useTranslation();
 
   return (
-    <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', bgcolor: '#dddddd' }}>
-      <AppBar color="inherit" position="sticky">
-        <Toolbar>
-          <Button startIcon={<ArrowBack />} color="inherit" component={NavLink} to="/">
-            {t('Back')}
-          </Button>
-        </Toolbar>
-      </AppBar>
+    <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <Toolbar>
+        <BackIconButton />
+      </Toolbar>
       <Box
         sx={{
           flex: '1 1 auto',
@@ -28,7 +24,7 @@ export default function AuthLayout() {
           alignItems: 'center',
         }}
       >
-        <Paper>
+        <Paper elevation={9} sx={{ flex: '0 1 400px' }}>
           <Tabs
             value={location.pathname}
             onChange={(_e, value) => {
