@@ -1,8 +1,9 @@
-import { Add, Delete, Save } from '@mui/icons-material';
+import { Add, Save } from '@mui/icons-material';
 import { Avatar, Box, Button, ButtonBase, TextField } from '@mui/material';
 import axios from 'axios';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import DeleteButton from '../../components/delete-button';
 import ImageUpload from '../../components/image-upload';
 import Image from '../../types/models/Image';
 import Tag from '../../types/models/Tag';
@@ -67,17 +68,12 @@ export default function TagEditor({ tag, reload }: TagEditorProps) {
         {tag ? t('Update') : t('Create')}
       </Button>
       {tag && (
-        <Button
-          color="error"
-          startIcon={<Delete />}
-          onClick={() => {
-            axios.delete(`/admin/tags/${tag.id}`).then(() => {
-              reload?.();
-            });
+        <DeleteButton
+          url={`/admin/tags/${tag.id}`}
+          onSucceed={() => {
+            reload?.();
           }}
-        >
-          {t('Delete')}
-        </Button>
+        />
       )}
     </Box>
   );

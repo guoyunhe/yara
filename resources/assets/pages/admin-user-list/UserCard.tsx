@@ -1,9 +1,5 @@
-import { Delete as DeleteIcon } from '@mui/icons-material';
-import { LoadingButton } from '@mui/lab';
 import { Avatar, ListItem, ListItemAvatar, ListItemText } from '@mui/material';
-import axios from 'axios';
-import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import DeleteButton from '../../components/delete-button';
 import User from '../../types/models/User';
 
 export interface UserCardProps {
@@ -12,31 +8,16 @@ export interface UserCardProps {
 }
 
 export default function UserCard({ user, onDelete }: UserCardProps) {
-  const { t } = useTranslation('admin');
-  const [deleting, setDeleting] = useState(false);
-
   return (
     <ListItem
       divider
       secondaryAction={
-        <LoadingButton
-          startIcon={<DeleteIcon />}
-          color="error"
-          loading={deleting}
-          onClick={() => {
-            setDeleting(true);
-            axios
-              .delete('/users/' + user.id)
-              .then(() => {
-                onDelete();
-              })
-              .finally(() => {
-                setDeleting(false);
-              });
+        <DeleteButton
+          url={`/users/${user.id}`}
+          onSucceed={() => {
+            onDelete();
           }}
-        >
-          {t('Delete')}
-        </LoadingButton>
+        />
       }
     >
       <ListItemAvatar>
