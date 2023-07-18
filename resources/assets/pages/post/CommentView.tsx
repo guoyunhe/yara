@@ -1,10 +1,10 @@
 import { AuthStatus, useAuth, useRequireAuth } from '@guoyunhe/react-auth';
-import { Delete, Edit, Reply } from '@mui/icons-material';
-import { LoadingButton } from '@mui/lab';
+import { Edit, Reply } from '@mui/icons-material';
 import { Box, Button, Stack } from '@mui/material';
 import axios from 'axios';
 import { ReactNode, memo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import DeleteButton from '../../components/delete-button';
 import Liker from '../../components/liker';
 import Markdown from '../../components/markdown';
 import RelativeTime from '../../components/relative-time';
@@ -29,7 +29,6 @@ function CommentView({ comment, children, onCreate, onUpdate, onDelete }: Commen
 
   const [replyOpen, setReplyOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
-  const [deleting, setDeleting] = useState(false);
 
   const commentFormContainerRef = useRef<HTMLElement>(null);
 
@@ -93,26 +92,12 @@ function CommentView({ comment, children, onCreate, onUpdate, onDelete }: Commen
                   </Button>
                 )}
                 {canEdit && (
-                  <LoadingButton
-                    loading={deleting}
-                    loadingPosition="start"
-                    color="error"
-                    startIcon={<Delete />}
-                    onClick={() => {
-                      // TODO: confirm before delete, and handle errors
-                      setDeleting(true);
-                      axios
-                        .delete(`/posts/${comment.postId}/comments/${comment.id}`)
-                        .then(() => {
-                          onDelete(comment);
-                        })
-                        .finally(() => {
-                          setDeleting(false);
-                        });
+                  <DeleteButton
+                    url={`/posts/${comment.postId}/comments/${comment.id}`}
+                    onSucceed={() => {
+                      onDelete(comment);
                     }}
-                  >
-                    {t('Delete')}
-                  </LoadingButton>
+                  />
                 )}
               </Stack>
             </Box>

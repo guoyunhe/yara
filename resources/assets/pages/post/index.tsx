@@ -1,5 +1,5 @@
 import { AuthStatus, useAuth, useRequireAuth } from '@guoyunhe/react-auth';
-import { Close, Delete, Edit, Reply } from '@mui/icons-material';
+import { Close, Edit, Reply } from '@mui/icons-material';
 import {
   Box,
   Button,
@@ -14,6 +14,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import DeleteButton from '../../components/delete-button';
 import Liker from '../../components/liker';
 import Markdown from '../../components/markdown';
 import RelativeTime from '../../components/relative-time';
@@ -140,18 +141,13 @@ export default function PostPage() {
             )}
             <PostShareButton post={post} />
             {canEdit && (
-              <Button
-                color="error"
-                startIcon={<Delete />}
-                onClick={() => {
-                  axios.delete(`/posts/${post.id}`).then(() => {
-                    navigate('/');
-                    removePost();
-                  });
+              <DeleteButton
+                url={`/posts/${post.id}`}
+                onSucceed={() => {
+                  navigate('/');
+                  removePost();
                 }}
-              >
-                {t('Delete')}
-              </Button>
+              />
             )}
           </Stack>
           <Divider sx={{ mt: 1, mb: 3 }} />
