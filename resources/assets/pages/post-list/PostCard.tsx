@@ -18,13 +18,13 @@ export interface PostCardProps {
 export default function PostCard({ post, excerptLength = 255, sx }: PostCardProps) {
   const requireAuth = useRequireAuth();
 
-  const { tagId, postId } = useParams();
+  const { tagId, postId, search } = useParams();
 
   return (
     <Card
       variant="outlined"
       component={Link}
-      to={tagId ? `/t/${tagId}/p/${post.id}` : `/p/${post.id}`}
+      to={`${tagId ? `/t/${tagId}` : ''}${search ? `/s/${search}` : ''}/p/${post.id}`}
       sx={{
         display: 'flex',
         overflow: 'hidden',

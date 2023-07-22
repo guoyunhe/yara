@@ -54,11 +54,14 @@ export default class PostsController {
     }
 
     if (search) {
-      search.split(' ').forEach((word) => {
-        query.where((q) => {
-          q.whereILike('title', `%${word}%`).orWhereILike('content', `%${word}%`);
+      search
+        .split(' ')
+        .filter(Boolean)
+        .forEach((word) => {
+          query.where((q) => {
+            q.whereILike('title', `%${word}%`).orWhereILike('content', `%${word}%`);
+          });
         });
-      });
     }
 
     if (userId) {

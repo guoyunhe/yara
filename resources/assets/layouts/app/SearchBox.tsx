@@ -2,12 +2,14 @@ import { Search as SearchIcon } from '@mui/icons-material';
 import { OutlinedInput } from '@mui/material';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export default function SearchBox() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [search, setSearch] = useState('');
+  const { search: searchParam } = useParams();
+  const [search, setSearch] = useState(searchParam || '');
+
   return (
     <form
       onSubmit={(e) => {
