@@ -53,7 +53,16 @@ const routes: RouteObject[] = [
           },
         ],
       },
-
+      {
+        path: 's/:search',
+        element: <PostListPage />,
+        children: [
+          {
+            path: 'p/:postId',
+            element: <PostPage />,
+          },
+        ],
+      },
       {
         path: 'submit',
         element: (

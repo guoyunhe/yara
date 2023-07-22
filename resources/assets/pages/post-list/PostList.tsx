@@ -7,12 +7,21 @@ import Post from '../../types/models/Post';
 import PostCard from './PostCard';
 
 export default function PostList() {
-  const { tagId = '', postId } = useParams();
+  const { tagId, postId, search } = useParams();
   const [page, setPage] = useState(1);
-  const { data: posts } = useFetch<Paginated<Post>>(
-    `/posts?${Number.isInteger(Number(tagId)) ? `tagId` : `tagSlug`}=${tagId}&page=${page}`
-  );
+
+  const apiSearchParams = new URLSearchParams();
+  apiSearchParams.set('page', String(page));
+  if (tagId) {
+    apiSearchParams.set(Number.isInteger(Number(tagId)) ? `tagId` : `tagSlug`, tagId);
+  }
+  if (search) {
+    apiSearchParams.set('search', search);
+  }
+
+  const { data: posts } = useFetch<Paginated<Post>>(`/posts?${apiSearchParams.toString()}`);
   const totalPage = posts ? Math.ceil(posts.meta.total / posts.meta.perPage) : 1;
+
   return (
     <Box
       sx={{

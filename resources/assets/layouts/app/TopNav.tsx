@@ -13,6 +13,7 @@ import LanguageMenu from '../../components/language-menu';
 import User from '../../types/models/User';
 import CreatePostButton from './CreatePostButton';
 import LogoutButton from './LogoutButton';
+import SearchBox from './SearchBox';
 
 export interface TopNavProps {
   onMenuButtonClick: () => void;
@@ -38,6 +39,7 @@ export default function TopNav({ onMenuButtonClick }: TopNavProps) {
             {window.SITE_NAME}
           </Typography>
         </Box>
+        <SearchBox />
         <Box flex="1 1 auto" />
         <CreatePostButton />
         {auth.status === AuthStatus.LoggedIn && auth.user ? (

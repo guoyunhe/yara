@@ -55,7 +55,9 @@ export default class PostsController {
 
     if (search) {
       search.split(' ').forEach((word) => {
-        query.whereILike('title', `%${word}%`).orWhereILike('content', `%${word}%`);
+        query.where((q) => {
+          q.whereILike('title', `%${word}%`).orWhereILike('content', `%${word}%`);
+        });
       });
     }
 
