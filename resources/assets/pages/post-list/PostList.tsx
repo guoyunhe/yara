@@ -1,5 +1,5 @@
 import { Box, Pagination } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
 import { useParams } from 'react-router-dom';
 import Paginated from '../../types/Paginated';
@@ -10,6 +10,8 @@ export default function PostList() {
   const { tagId, postId, search } = useParams();
   const [page, setPage] = useState(1);
 
+  const prevPostIdRef = useRef(postId);
+
   const apiSearchParams = new URLSearchParams();
   apiSearchParams.set('page', String(page));
   if (tagId) {
@@ -19,8 +21,15 @@ export default function PostList() {
     apiSearchParams.set('search', search);
   }
 
-  const { data: posts } = useFetch<Paginated<Post>>(`/posts?${apiSearchParams.toString()}`);
+  const { data: posts, reload } = useFetch<Paginated<Post>>(`/posts?${apiSearchParams.toString()}`);
   const totalPage = posts ? Math.ceil(posts.meta.total / posts.meta.perPage) : 1;
+
+  useEffect(() => {
+    if (!postId && prevPostIdRef.current) {
+      reload();
+    }
+    prevPostIdRef.current = postId;
+  }, [postId]);
 
   return (
     <Box
