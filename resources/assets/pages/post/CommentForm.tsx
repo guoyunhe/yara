@@ -2,7 +2,8 @@ import { LoadingButton } from '@mui/lab';
 import { Box, Button, Stack, SxProps, TextField } from '@mui/material';
 import axios from 'axios';
 import { t } from 'i18next';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import EmojiPicker from '../../components/emoji-picker';
 import Comment from '../../types/models/Comment';
 
 export interface CommentFormProps {
@@ -24,6 +25,7 @@ export default function CommentForm({
   onUpdate,
   sx,
 }: CommentFormProps) {
+  const textareaRef = useRef<HTMLDivElement>(null);
   const [content, setContent] = useState(comment?.content || '');
   const [submitting, setSubmitting] = useState(false);
 
@@ -33,7 +35,24 @@ export default function CommentForm({
 
   return (
     <Box sx={sx}>
+      <Stack direction="row">
+        <EmojiPicker
+          onSelect={(emoji) => {
+            const textarea = textareaRef.current?.querySelector('textarea');
+            if (textarea) {
+              textarea.focus();
+              setContent(
+                (prev) =>
+                  prev.substring(0, Math.min(textarea.selectionStart, textarea.selectionEnd)) +
+                  emoji.native +
+                  prev.substring(Math.max(textarea.selectionStart, textarea.selectionEnd))
+              );
+            }
+          }}
+        />
+      </Stack>
       <TextField
+        ref={textareaRef}
         value={content}
         onChange={(e) => setContent(e.target.value)}
         placeholder={t('Comment')}
