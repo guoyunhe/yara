@@ -84,7 +84,12 @@ export default function CommentForm({
                 .post<Comment>(`/posts/${postId}/comments`, { content, parentId })
                 .then((res) => {
                   onCreate?.(res.data);
+                  setContent('');
                   onClose?.();
+                  setTimeout(() => {
+                    const element = document.getElementById(`comment-${res.data.id}`);
+                    element?.scrollIntoView();
+                  }, 1000);
                 })
                 .finally(() => {
                   setSubmitting(false);
