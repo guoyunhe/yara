@@ -1,11 +1,13 @@
 import { Save } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
-import { Box, Container, Divider, Grid, TextField, Typography } from '@mui/material';
+import { Box, Container, Divider, Grid, Stack, TextField, Typography } from '@mui/material';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
+import { Edit } from 'use-editable';
+import EmojiPicker from '../../components/emoji-picker';
 import Markdown from '../../components/markdown';
 import MarkdownCodeEditor from '../../components/markdown-code-editor';
 import TagChips from '../../components/tag-chips';
@@ -26,6 +28,8 @@ export default function SubmitPage() {
   const [content, setContent] = useState('');
 
   const [submitting, setSubmitting] = useState(false);
+
+  const editRef = useRef<Edit>(null);
 
   useEffect(() => {
     if (post) {
@@ -55,7 +59,16 @@ export default function SubmitPage() {
               sx={{ mb: 3 }}
             />
 
+            <Stack direction="row">
+              <EmojiPicker
+                onSelect={(emoji) => {
+                  editRef.current?.insert(emoji.native);
+                }}
+              />
+            </Stack>
+
             <MarkdownCodeEditor
+              editRef={editRef}
               value={content}
               onChange={setContent}
               sx={{ minHeight: 100, mb: 3 }}

@@ -6,7 +6,7 @@ import { Fragment, MutableRefObject, useCallback, useRef } from 'react';
 import { Edit, useEditable } from 'use-editable';
 
 export interface MarkdownCodeEditorProps {
-  editRef?: MutableRefObject<Edit>;
+  editRef?: MutableRefObject<Edit | null>;
   value: string;
   onChange?: (value: string) => void;
   sx?: SxProps;
