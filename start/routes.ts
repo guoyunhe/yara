@@ -34,7 +34,7 @@ Route.group(() => {
   Route.put('/user', 'AuthController.update').middleware('auth');
   Route.put('/password', 'AuthController.password').middleware('auth');
 
-  Route.resource('/images', 'ImagesController')
+  Route.resource('images', 'ImagesController')
     .apiOnly()
     .middleware({
       store: ['auth'],
@@ -73,6 +73,9 @@ Route.group(() => {
       destroy: ['auth'],
     });
   Route.resource('users', 'UsersController').only(['show']);
+  Route.resource('notifications', 'NotificationsController')
+    .only(['index', 'update', 'destroy'])
+    .middleware({ index: ['auth'], update: ['auth'], destroy: ['auth'] });
 
   Route.group(() => {
     Route.resource('options', 'OptionsController').apiOnly();
