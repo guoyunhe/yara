@@ -9,6 +9,8 @@ export default class extends BaseSchema {
 
       table.string('type').notNullable();
       table.integer('user_id').unsigned().notNullable().references('users.id').onDelete('CASCADE');
+      table.integer('target_type').unsigned().nullable();
+      table.integer('target_id').unsigned().nullable();
       table.json('data').notNullable();
       table.boolean('read').notNullable().defaultTo(0);
 
