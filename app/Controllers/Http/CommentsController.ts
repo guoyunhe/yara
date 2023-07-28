@@ -1,7 +1,9 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import { rules, schema } from '@ioc:Adonis/Core/Validator';
 import Comment from 'App/Models/Comment';
+import Notification from 'App/Models/Notification';
 import Post from 'App/Models/Post';
+import { DateTime } from 'luxon';
 
 export default class CommentsController {
   public async store({ auth, request, response }: HttpContextContract) {
@@ -31,6 +33,43 @@ export default class CommentsController {
     });
 
     await comment.load('user');
+
+    let notiAttr: Partial<Notification>;
+
+    if (parentId) {
+      const parent = await Comment.find(parentId);
+      notiAttr = {
+        userId: parent!.userId,
+        targetType: 'comment',
+        targetId: parent!.id,
+      };
+    } else {
+      notiAttr = {
+        userId: post.userId,
+        targetType: 'post',
+        targetId: post.id,
+      };
+    }
+
+    if (notiAttr) {
+      const noti = await Notification.firstOrCreate(
+        {
+          type: 'comment',
+          read: false,
+          ...notiAttr,
+        },
+        {
+          data: {
+            commentIds: [],
+            userIds: [],
+          },
+        }
+      );
+      noti.createdAt = DateTime.now();
+      noti.data.commentIds.push(comment.id);
+      noti.data.userIds.push(comment.userId);
+      await noti.save();
+    }
 
     return comment;
   }

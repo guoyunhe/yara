@@ -10,13 +10,8 @@ export default class NotificationsController {
       perPage = 10,
     } = await request.validate({
       schema: schema.create({
-        read: schema.boolean.optional([
-          rules.exists({
-            table: 'users',
-            column: 'id',
-          }),
-        ]),
-        page: schema.number.optional([]),
+        read: schema.boolean.optional(),
+        page: schema.number.optional(),
         perPage: schema.number.optional([rules.range(5, 20)]),
       }),
     });
