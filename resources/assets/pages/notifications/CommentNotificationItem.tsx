@@ -25,7 +25,14 @@ export default function CommentNotificationItem({
     <ListItemButton
       component={Link}
       to={`/p/${comment?.postId}#comment-${data.commentId}`}
-      onClick={() => axios.put(`/notifications/${notification.id}`, { read: true })}
+      onClick={() => {
+        // mark notification as read
+        axios.put(`/notifications/${notification.id}`, { read: true });
+        // scroll to comment position
+        setTimeout(() => {
+          document.getElementById(`comment-${data.commentId}`)?.scrollIntoView();
+        }, 500);
+      }}
       alignItems="flex-start"
       sx={sx}
     >
