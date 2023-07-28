@@ -1,6 +1,7 @@
 import { RequireAuth } from '@guoyunhe/react-auth';
 import { lazy } from 'react';
 import { RouteObject, createBrowserRouter } from 'react-router-dom';
+import NotificationsPage from './pages/notifications';
 import PostPage from './pages/post';
 import PostListPage from './pages/post-list';
 import ProfilePage from './pages/profile';
@@ -98,6 +99,14 @@ const routes: RouteObject[] = [
       {
         path: 'u/:userId',
         element: <ProfilePage />,
+      },
+      {
+        path: 'notifications',
+        element: (
+          <RequireAuth>
+            <NotificationsPage />
+          </RequireAuth>
+        ),
       },
       {
         path: 'settings',
