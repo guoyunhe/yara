@@ -23,6 +23,9 @@ export default class Comment extends Model {
   @belongsTo(() => Post)
   public post: BelongsTo<typeof Post>;
 
+  @belongsTo(() => Comment, { foreignKey: 'parentId' })
+  public parent: BelongsTo<typeof Comment>;
+
   @hasMany(() => Comment)
   public comments: HasMany<typeof Comment>;
 
