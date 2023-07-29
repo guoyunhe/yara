@@ -3,6 +3,7 @@ import { grey } from '@mui/material/colors';
 import { ComponentType, memo } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import BlockQuote from '../block-quote';
 
 const components: Record<string, ComponentType> = {
   h1: (props) => <Typography variant="h1" {...props} />,
@@ -23,6 +24,7 @@ const components: Record<string, ComponentType> = {
     />
   ),
   a: Link,
+  blockquote: BlockQuote,
 };
 
 export interface MarkdownProps {

@@ -12,6 +12,7 @@ import axios from 'axios';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import BlockQuote from '../../components/block-quote';
 import RelativeTime from '../../components/relative-time';
 import Comment from '../../types/models/Comment';
 import Notification from '../../types/models/Notification';
@@ -78,9 +79,7 @@ export default function LikeNotificationItem({ notification, sx }: LikeNotificat
               : t(`{{user}} liked your comment`, {
                   user: user?.name,
                 })}
-            <Box sx={{ fontStyle: 'italic', borderLeft: '2px solid #888888', pl: 2 }}>
-              {comment?.content || post?.title}
-            </Box>
+            <BlockQuote>{comment?.content || post?.title}</BlockQuote>
           </Box>
         }
         secondary={<RelativeTime date={notification.createdAt} />}

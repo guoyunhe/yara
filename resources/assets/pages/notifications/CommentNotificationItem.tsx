@@ -12,6 +12,7 @@ import axios from 'axios';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import BlockQuote from '../../components/block-quote';
 import RelativeTime from '../../components/relative-time';
 import Comment from '../../types/models/Comment';
 import Notification from '../../types/models/Notification';
@@ -69,9 +70,7 @@ export default function CommentNotificationItem({
             {t(`{{user}} replied you`, {
               user: comment?.user?.name,
             })}
-            <Box sx={{ fontStyle: 'italic', borderLeft: '2px solid #888888', pl: 2 }}>
-              {comment?.parent?.content || comment?.post?.title}
-            </Box>
+            <BlockQuote>{comment?.parent?.content || comment?.post?.title}</BlockQuote>
             <Box>{comment?.content?.substring(0, 255)}</Box>
           </Box>
         }
