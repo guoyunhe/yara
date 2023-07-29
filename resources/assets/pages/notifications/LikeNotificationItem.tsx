@@ -40,7 +40,9 @@ export default function LikeNotificationItem({ notification, sx }: LikeNotificat
       to={targetType === 'post' ? `/p/${post?.id}` : `/p/${comment?.postId}#comment-${comment?.id}`}
       onClick={() => {
         // mark notification as read
-        axios.put(`/notifications/${notification.id}`, { read: true });
+        axios.put(`/notifications/${notification.id}`, { read: true }).then(() => {
+          window.dispatchEvent(new Event('reload-unread-notification'));
+        });
         // scroll to comment position
         if (comment) {
           setTimeout(() => {

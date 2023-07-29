@@ -37,7 +37,9 @@ export default function CommentNotificationItem({
       to={`/p/${comment?.postId}#comment-${data.commentId}`}
       onClick={() => {
         // mark notification as read
-        axios.put(`/notifications/${notification.id}`, { read: true });
+        axios.put(`/notifications/${notification.id}`, { read: true }).then(() => {
+          window.dispatchEvent(new Event('reload-unread-notification'));
+        });
         // scroll to comment position
         setTimeout(() => {
           document.getElementById(`comment-${data.commentId}`)?.scrollIntoView();
