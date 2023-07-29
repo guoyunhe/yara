@@ -8,7 +8,7 @@ export default function NotificationsPage() {
   const { data } = useFetch<Paginated<Notification>>(`/notifications?page=1`);
 
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="sm" sx={{ px: { xs: 0, sm: 3 } }}>
       <List>
         {data?.data.map((item) => (
           <NotificationItem
