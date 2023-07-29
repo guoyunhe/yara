@@ -1,4 +1,4 @@
-import { Message as MessageIcon } from '@mui/icons-material';
+import { ThumbUp } from '@mui/icons-material';
 import {
   Avatar,
   Box,
@@ -15,42 +15,47 @@ import { Link } from 'react-router-dom';
 import RelativeTime from '../../components/relative-time';
 import Comment from '../../types/models/Comment';
 import Notification from '../../types/models/Notification';
+import Post from '../../types/models/Post';
+import User from '../../types/models/User';
 
-export interface CommentNotificationItemProps {
+export interface LikeNotificationItemProps {
   notification: Notification;
   sx?: SxProps;
 }
 
-export default function CommentNotificationItem({
-  notification,
-  sx,
-}: CommentNotificationItemProps) {
+export default function LikeNotificationItem({ notification, sx }: LikeNotificationItemProps) {
   const { t } = useTranslation();
 
-  const { data = {} } = notification;
-  const { data: comment } = useFetch<Comment>(`/comments/${data.commentId}`);
+  const { data = {}, targetType, targetId } = notification;
+  const { data: post } = useFetch<Post>(`/posts/${targetId}`, { disabled: targetType !== 'post' });
+  const { data: comment } = useFetch<Comment>(`/comments/${targetId}`, {
+    disabled: targetType !== 'comment',
+  });
+  const { data: user } = useFetch<User>(`/users/${data.userIds[0]}`);
 
   return (
     <ListItemButton
       component={Link}
-      to={`/p/${comment?.postId}#comment-${data.commentId}`}
+      to={targetType === 'post' ? `/p/${post?.id}` : `/p/${comment?.postId}#comment-${comment?.id}`}
       onClick={() => {
         // mark notification as read
         axios.put(`/notifications/${notification.id}`, { read: true });
         // scroll to comment position
-        setTimeout(() => {
-          document.getElementById(`comment-${data.commentId}`)?.scrollIntoView();
-        }, 500);
+        if (comment) {
+          setTimeout(() => {
+            document.getElementById(`comment-${comment.id}`)?.scrollIntoView();
+          }, 500);
+        }
       }}
       alignItems="flex-start"
       divider
       sx={sx}
     >
       <ListItemAvatar sx={{ position: 'relative', minWidth: 0, mr: 2 }}>
-        <Avatar src={comment?.user?.avatar?.url} />
+        <Avatar src={user?.avatar?.url} />
         <Fab
           size="small"
-          color="secondary"
+          color="primary"
           sx={{
             pointerEvents: 'none',
             position: 'absolute',
@@ -60,19 +65,22 @@ export default function CommentNotificationItem({
             transformOrigin: 'right bottom',
           }}
         >
-          <MessageIcon />
+          <ThumbUp />
         </Fab>
       </ListItemAvatar>
       <ListItemText
         primary={
           <Box>
-            {t(`{{user}} replied you`, {
-              user: comment?.user?.name,
-            })}
+            {targetType === 'post'
+              ? t(`{{user}} liked your post`, {
+                  user: user?.name,
+                })
+              : t(`{{user}} liked your comment`, {
+                  user: user?.name,
+                })}
             <Box sx={{ fontStyle: 'italic', borderLeft: '2px solid #888888', pl: 2 }}>
-              {comment?.parent?.content || comment?.post?.title}
+              {comment?.content || post?.title}
             </Box>
-            <Box>{comment?.content?.substring(0, 255)}</Box>
           </Box>
         }
         secondary={<RelativeTime date={notification.createdAt} />}

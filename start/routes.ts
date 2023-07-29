@@ -58,6 +58,7 @@ Route.group(() => {
       update: ['auth'],
       destroy: ['auth'],
     });
+  Route.resource('comments', 'CommentsController').only(['show']);
   Route.resource('posts.likes', 'PostLikesController')
     .apiOnly()
     .middleware({
