@@ -72,13 +72,29 @@ export default function LikeNotificationItem({ notification, sx }: LikeNotificat
       <ListItemText
         primary={
           <Box>
-            {targetType === 'post'
-              ? t(`{{user}} liked your post`, {
-                  user: user?.name,
-                })
-              : t(`{{user}} liked your comment`, {
-                  user: user?.name,
-                })}
+            {data.userIds.length > 1 ? (
+              <>
+                {targetType === 'post'
+                  ? t(`{{user}} and {{count}} users liked your post`, {
+                      user: user?.name,
+                      count: data.userIds.length,
+                    })
+                  : t(`{{user}} and {{count}} users liked your comment`, {
+                      user: user?.name,
+                      count: data.userIds.length,
+                    })}
+              </>
+            ) : (
+              <>
+                {targetType === 'post'
+                  ? t(`{{user}} liked your post`, {
+                      user: user?.name,
+                    })
+                  : t(`{{user}} liked your comment`, {
+                      user: user?.name,
+                    })}
+              </>
+            )}
             <BlockQuote>{comment?.content || post?.title}</BlockQuote>
           </Box>
         }

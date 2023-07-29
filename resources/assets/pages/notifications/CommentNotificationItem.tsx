@@ -28,7 +28,7 @@ export default function CommentNotificationItem({
 }: CommentNotificationItemProps) {
   const { t } = useTranslation();
 
-  const { data = {} } = notification;
+  const { data = {}, targetType } = notification;
   const { data: comment } = useFetch<Comment>(`/comments/${data.commentId}`);
 
   return (
@@ -67,9 +67,13 @@ export default function CommentNotificationItem({
       <ListItemText
         primary={
           <Box>
-            {t(`{{user}} replied you`, {
-              user: comment?.user?.name,
-            })}
+            {targetType === 'post'
+              ? t(`{{user}} replied your post`, {
+                  user: comment?.user?.name,
+                })
+              : t(`{{user}} replied your comment`, {
+                  user: comment?.user?.name,
+                })}
             <BlockQuote>{comment?.parent?.content || comment?.post?.title}</BlockQuote>
             <Box>{comment?.content?.substring(0, 255)}</Box>
           </Box>
