@@ -23,7 +23,7 @@ export default function UserCard({ user, onDelete }: UserCardProps) {
       <ListItemAvatar>
         <Avatar src={user.avatar?.url} />
       </ListItemAvatar>
-      <ListItemText primary={user.name} secondary={user.email} />
+      <ListItemText primary={user.username} secondary={user.email} />
     </ListItem>
   );
 }

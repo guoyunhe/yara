@@ -55,7 +55,7 @@ export default function LeftNav({ drawerOpen, onDrawerClose }: LeftNavProps) {
               <ListItemIcon>
                 <Avatar src={user.avatar?.url} sx={{ width: 24, height: 24 }} />
               </ListItemIcon>
-              <ListItemText primary={user.name} />
+              <ListItemText primary={user.username} />
             </ListItemButton>
             {user.role === 'admin' && (
               <ListItemButton component={Link} to="/admin">

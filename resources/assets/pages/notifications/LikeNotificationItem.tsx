@@ -78,11 +78,11 @@ export default function LikeNotificationItem({ notification, sx }: LikeNotificat
               <>
                 {targetType === 'post'
                   ? t(`{{user}} and {{count}} users liked your post`, {
-                      user: user?.name,
+                      user: user?.username,
                       count: data.userIds.length,
                     })
                   : t(`{{user}} and {{count}} users liked your comment`, {
-                      user: user?.name,
+                      user: user?.username,
                       count: data.userIds.length,
                     })}
               </>
@@ -90,10 +90,10 @@ export default function LikeNotificationItem({ notification, sx }: LikeNotificat
               <>
                 {targetType === 'post'
                   ? t(`{{user}} liked your post`, {
-                      user: user?.name,
+                      user: user?.username,
                     })
                   : t(`{{user}} liked your comment`, {
-                      user: user?.name,
+                      user: user?.username,
                     })}
               </>
             )}

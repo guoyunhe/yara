@@ -12,20 +12,18 @@ export default function ProfileCard() {
   const { t } = useTranslation();
   const { user, setUser } = useAuth<User>();
 
-  const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<any>(null);
 
-  const nameError = getFieldError(errors, 'name');
   const usernameError = getFieldError(errors, 'username');
   const emailError = getFieldError(errors, 'email');
 
   const submit = () => {
     setLoading(true);
     axios
-      .put('/user', { name, username, email })
+      .put('/user', { username, email })
       .then((res) => {
         setUser(res.data);
       })
@@ -38,7 +36,6 @@ export default function ProfileCard() {
   };
 
   useEffect(() => {
-    setName(user?.name || '');
     setEmail(user?.email || '');
     setUsername(user?.username || '');
   }, [user]);
@@ -49,17 +46,6 @@ export default function ProfileCard() {
       <CardContent>
         <Box sx={{ flex: '1 1 auto', display: 'flex', flexDirection: 'column' }}>
           {typeof errors === 'string' && <Alert severity="error">{errors}</Alert>}
-          <TextField
-            label={t('Name')}
-            type="text"
-            value={name}
-            onChange={(e) => {
-              setName(e.target.value);
-            }}
-            error={!!nameError}
-            helperText={nameError}
-            sx={{ mb: 2 }}
-          />
           <TextField
             label={t('Username')}
             type="text"

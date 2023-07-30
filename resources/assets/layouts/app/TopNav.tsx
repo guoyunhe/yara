@@ -51,7 +51,7 @@ export default function TopNav({ onMenuButtonClick }: TopNavProps) {
               startIcon={
                 <Avatar
                   src={auth.user.avatar?.url}
-                  alt={auth.user.name}
+                  alt={auth.user.username}
                   sx={{ width: 24, height: 24 }}
                 />
               }
@@ -59,7 +59,7 @@ export default function TopNav({ onMenuButtonClick }: TopNavProps) {
               to={`/u/${auth.user.username}`}
               sx={{ display: { xs: 'none', sm: 'flex' } }}
             >
-              {auth.user.name}
+              {auth.user.username}
             </Button>
             <PaletteModeIconButton />
             <LanguageMenu />

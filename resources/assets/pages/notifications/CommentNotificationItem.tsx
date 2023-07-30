@@ -71,10 +71,10 @@ export default function CommentNotificationItem({
           <Box>
             {targetType === 'post'
               ? t(`{{user}} replied your post`, {
-                  user: comment?.user?.name,
+                  user: comment?.user?.username,
                 })
               : t(`{{user}} replied your comment`, {
-                  user: comment?.user?.name,
+                  user: comment?.user?.username,
                 })}
             <BlockQuote>{comment?.parent?.content || comment?.post?.title}</BlockQuote>
             <Box>{comment?.content?.substring(0, 255)}</Box>

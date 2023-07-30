@@ -24,7 +24,6 @@ export default function ProfileHeader() {
 
   const canEdit = auth.user?.id === user?.id;
 
-  const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [description, setDescription] = useState<string | null>(null);
   const [avatar, setAvatar] = useState<Image | null>(null);
@@ -35,7 +34,6 @@ export default function ProfileHeader() {
 
   useEffect(() => {
     if (user) {
-      setName(user.name);
       setUsername(user.username);
       setDescription(user.description);
       setAvatar(user.avatar || null);
@@ -56,7 +54,7 @@ export default function ProfileHeader() {
               onClick={() => {
                 setSaving(true);
                 axios
-                  .put('/user', { name, username, description, tags, avatarId: avatar?.id })
+                  .put('/user', { username, description, tags, avatarId: avatar?.id })
                   .then((res) => {
                     if (username !== userId) {
                       navigate(`/u/${username}`);
@@ -85,7 +83,7 @@ export default function ProfileHeader() {
       )}
       <Box sx={{ display: 'flex', mb: 3 }}>
         <Box sx={{ position: 'relative' }}>
-          <Avatar src={avatar?.url} sx={{ width: 96, height: 96 }} />
+          <Avatar src={avatar?.url} sx={{ width: 48, height: 48 }} />
           {editMode && (
             <Fab
               color="primary"
@@ -99,19 +97,6 @@ export default function ProfileHeader() {
           )}
         </Box>
         <Stack justifyContent="center" sx={{ flex: '1 1 auto', overflow: 'hidden', ml: 3 }}>
-          {editMode ? (
-            <TextField
-              label={t('Name')}
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              fullWidth
-              sx={{ mb: 2 }}
-            />
-          ) : (
-            <Typography variant="h1" sx={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>
-              {name}
-            </Typography>
-          )}
           {editMode ? (
             <TextField
               label={t('Username')}
