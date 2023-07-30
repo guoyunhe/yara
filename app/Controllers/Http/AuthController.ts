@@ -2,6 +2,8 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import { rules, schema } from '@ioc:Adonis/Core/Validator';
 import User from 'App/Models/User';
 
+const usernameRegex = /^[\p{L}_]+$/u;
+
 export default class AuthController {
   public async login({ auth, i18n, request, response }: HttpContextContract) {
     const email = request.input('email');
@@ -28,9 +30,8 @@ export default class AuthController {
   public async register({ auth, i18n, request }: HttpContextContract) {
     const data = await request.validate({
       schema: schema.create({
-        name: schema.string({ trim: true }, [rules.maxLength(255)]),
         username: schema.string({ trim: true }, [
-          rules.alphaNum({ allow: ['underscore'] }),
+          rules.regex(usernameRegex),
           rules.unique({ table: 'users', column: 'username', caseInsensitive: true }),
           rules.maxLength(255),
         ]),
@@ -66,9 +67,8 @@ export default class AuthController {
             column: 'id',
           }),
         ]),
-        name: schema.string.optional({ trim: true }, [rules.maxLength(255)]),
         username: schema.string.optional({ trim: true }, [
-          rules.alphaNum({ allow: ['underscore'] }),
+          rules.regex(usernameRegex),
           rules.unique({
             table: 'users',
             column: 'username',

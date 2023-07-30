@@ -14,9 +14,10 @@ export default class extends BaseSchema {
         .notNullable()
         .references('comments.id')
         .onDelete('CASCADE');
+
       table.unique(['user_id', 'comment_id']);
 
-      table.tinyint('like').notNullable();
+      table.tinyint('like').notNullable().index();
 
       table.timestamp('created_at').notNullable().defaultTo(this.raw('CURRENT_TIMESTAMP'));
       table.timestamp('updated_at').notNullable().defaultTo(this.raw('CURRENT_TIMESTAMP'));

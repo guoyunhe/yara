@@ -9,7 +9,7 @@ export default class extends BaseSchema {
 
       table.integer('user_id').unsigned().nullable().references('users.id').onDelete('SET NULL');
 
-      table.string('path').notNullable();
+      table.string('path').notNullable().unique();
       table.integer('size').notNullable();
       table.integer('width').notNullable();
       table.integer('height').notNullable();

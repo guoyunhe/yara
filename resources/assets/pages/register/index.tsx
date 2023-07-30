@@ -7,20 +7,19 @@ import getFieldError from '../../utils/getFieldError';
 
 export default function RegisterPage() {
   const { t } = useTranslation();
-  const [name, setName] = useState('');
+
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
+
   const { submit, loading, errors } = useRegister({
-    name,
     username,
     email,
     password,
     passwordConfirm,
   });
 
-  const nameError = getFieldError(errors, 'name');
   const usernameError = getFieldError(errors, 'username');
   const emailError = getFieldError(errors, 'email');
   const passwordError = getFieldError(errors, 'password');
@@ -29,17 +28,6 @@ export default function RegisterPage() {
   return (
     <Stack spacing={3} p={3}>
       {typeof errors === 'string' && <Alert severity="error">{errors}</Alert>}
-      <TextField
-        label={t('Name')}
-        type="text"
-        name="name"
-        value={name}
-        onChange={(e) => {
-          setName(e.target.value);
-        }}
-        error={!!nameError}
-        helperText={nameError}
-      />
       <TextField
         label={t('Username')}
         type="text"

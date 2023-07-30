@@ -9,9 +9,10 @@ export default class extends BaseSchema {
 
       table.integer('user_id').unsigned().notNullable().references('users.id').onDelete('CASCADE');
       table.integer('post_id').unsigned().notNullable().references('posts.id').onDelete('CASCADE');
+
       table.unique(['user_id', 'post_id']);
 
-      table.tinyint('like').notNullable();
+      table.tinyint('like').notNullable().index();
 
       table.timestamp('created_at').notNullable().defaultTo(this.raw('CURRENT_TIMESTAMP'));
       table.timestamp('updated_at').notNullable().defaultTo(this.raw('CURRENT_TIMESTAMP'));
