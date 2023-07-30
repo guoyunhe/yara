@@ -1,7 +1,11 @@
 import { useAuth } from '@guoyunhe/react-auth';
-import { Edit, Save, Upload } from '@mui/icons-material';
+import {
+  CameraAlt as CameraAltIcon,
+  Edit as EditIcon,
+  Save as SaveIcon,
+} from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
-import { Avatar, Box, Button, Fab, Stack, TextField, Typography } from '@mui/material';
+import { Avatar, Box, Button, IconButton, Stack, TextField, Typography } from '@mui/material';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
@@ -50,7 +54,7 @@ export default function ProfileHeader() {
               loading={saving}
               loadingPosition="start"
               variant="contained"
-              startIcon={<Save />}
+              startIcon={<SaveIcon />}
               onClick={() => {
                 setSaving(true);
                 axios
@@ -71,7 +75,7 @@ export default function ProfileHeader() {
             </LoadingButton>
           ) : (
             <Button
-              startIcon={<Edit />}
+              startIcon={<EditIcon />}
               onClick={() => {
                 setEditMode(true);
               }}
@@ -85,15 +89,13 @@ export default function ProfileHeader() {
         <Box sx={{ position: 'relative' }}>
           <Avatar src={avatar?.url} sx={{ width: 48, height: 48 }} />
           {editMode && (
-            <Fab
-              color="primary"
-              size="small"
+            <IconButton
               component="label"
-              sx={{ position: 'absolute', bottom: 0, right: 0 }}
+              sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
             >
-              <Upload />
+              <CameraAltIcon />
               <ImageUpload onChange={setAvatar} width={256} height={256} fit="cover" />
-            </Fab>
+            </IconButton>
           )}
         </Box>
         <Stack justifyContent="center" sx={{ flex: '1 1 auto', overflow: 'hidden', ml: 3 }}>
@@ -110,7 +112,11 @@ export default function ProfileHeader() {
           )}
         </Stack>
       </Box>
-      {editMode ? <TagSelect value={tags} onChange={setTags} /> : <TagChips tags={tags} />}
+      {editMode ? (
+        <TagSelect value={tags} onChange={setTags} sx={{ mb: 3 }} />
+      ) : (
+        <TagChips tags={tags} sx={{ mb: 3 }} />
+      )}
       {editMode ? (
         <TextField
           label={t('Description')}
