@@ -15,6 +15,7 @@ import {
   ListItemIcon,
   ListItemText,
 } from '@mui/material';
+import { useEffect, useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -23,19 +24,28 @@ import Tag from '../../types/models/Tag';
 import User from '../../types/models/User';
 import { drawerWidth } from './config';
 
-export interface LeftNavProps {
-  drawerOpen: boolean;
-  onDrawerClose: () => void;
-}
-
-export default function LeftNav({ drawerOpen, onDrawerClose }: LeftNavProps) {
+export default function LeftNav() {
   const { t } = useTranslation();
   const { user, status } = useAuth<User>();
   const { data: tags = [] } = useFetch<Tag[]>('/tags');
   const logout = useLogout();
 
+  const [open, setOpen] = useState(false);
+
+  const onDrawerClose = () => setOpen(false);
+
+  useEffect(() => {
+    function handleOpen() {
+      setOpen(true);
+    }
+    window.addEventListener('left-nav-open', handleOpen);
+    return () => {
+      window.removeEventListener('left-nav-open', handleOpen);
+    };
+  }, []);
+
   return (
-    <Drawer open={drawerOpen} onClose={onDrawerClose} sx={{ width: drawerWidth }}>
+    <Drawer open={open} onClose={onDrawerClose} sx={{ width: drawerWidth }}>
       <List sx={{ width: drawerWidth }} onClick={onDrawerClose}>
         {user?.tags?.map((tag) => (
           <TagListItem key={tag.id} tag={tag} />

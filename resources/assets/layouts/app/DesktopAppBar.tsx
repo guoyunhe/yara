@@ -16,18 +16,18 @@ import LogoutIconButton from './LogoutIconButton';
 import NotificationIconButton from './NotificationIconButton';
 import SearchBox from './SearchBox';
 
-export interface TopNavProps {
-  onMenuButtonClick: () => void;
-}
-
-export default function TopNav({ onMenuButtonClick }: TopNavProps) {
+export default function DesktopAppBar() {
   const { t } = useTranslation();
   const auth = useAuth<User>();
 
   return (
     <AppBar position="static" color="transparent" sx={{ zIndex: 1 }}>
       <Toolbar>
-        <IconButton color="inherit" edge="start" onClick={onMenuButtonClick}>
+        <IconButton
+          color="inherit"
+          edge="start"
+          onClick={() => window.dispatchEvent(new Event('left-nav-open'))}
+        >
           <MenuIcon />
         </IconButton>
         <Box
@@ -57,19 +57,13 @@ export default function TopNav({ onMenuButtonClick }: TopNavProps) {
               }
               component={Link}
               to={`/u/${auth.user.username}`}
-              sx={{ display: { xs: 'none', sm: 'flex' } }}
             >
               {auth.user.username}
             </Button>
             <PaletteModeIconButton />
             <LanguageMenu />
             <NotificationIconButton />
-            <IconButton
-              color="inherit"
-              component={Link}
-              to="/settings"
-              sx={{ display: { xs: 'none', sm: 'flex' } }}
-            >
+            <IconButton color="inherit" component={Link} to="/settings">
               <SettingsIcon />
             </IconButton>
             <LogoutIconButton />
@@ -84,7 +78,6 @@ export default function TopNav({ onMenuButtonClick }: TopNavProps) {
               startIcon={<LoginIcon />}
               component={Link}
               to="/login"
-              sx={{ display: { xs: 'none', sm: 'flex' } }}
             >
               {t('Login')}
             </Button>
@@ -94,7 +87,6 @@ export default function TopNav({ onMenuButtonClick }: TopNavProps) {
               startIcon={<PersonAddIcon />}
               component={Link}
               to="/register"
-              sx={{ display: { xs: 'none', sm: 'flex' } }}
             >
               {t('Register')}
             </Button>
