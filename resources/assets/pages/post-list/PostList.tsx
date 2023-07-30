@@ -1,13 +1,15 @@
-import { Box, Pagination } from '@mui/material';
+import { Box, Pagination, Theme, useMediaQuery } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
 import { useParams } from 'react-router-dom';
 import Paginated from '../../types/Paginated';
 import Post from '../../types/models/Post';
 import PostCard from './PostCard';
-import ProfileHeader from './ProfileHeader';
+import HomeMobileAppBar from './mobile-app-bars/HomeMobileAppBar';
+import UserHeader from './user/UserHeader';
 
 export default function PostList() {
+  const isMobile = useMediaQuery<Theme>((theme) => theme.breakpoints.down('md'));
   const { userId, tagId, postId, search } = useParams();
   const [page, setPage] = useState(1);
 
@@ -44,8 +46,9 @@ export default function PostList() {
         overflow: 'auto',
       }}
     >
+      {isMobile && !tagId && !userId && !search && <HomeMobileAppBar />}
       <Box sx={{ maxWidth: 632, mx: 'auto', p: { xs: 0, md: 2 } }}>
-        {userId && <ProfileHeader />}
+        {userId && <UserHeader />}
         {posts?.data.map((post) => (
           <PostCard key={post.id} post={post} sx={{ mb: 2 }} />
         ))}
