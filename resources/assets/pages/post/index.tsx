@@ -10,7 +10,6 @@ import {
   Typography,
 } from '@mui/material';
 import axios from 'axios';
-import { useCallback, useEffect, useRef, useState } from 'react';
 import { useFetch } from 'react-fast-fetch';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate, useParams } from 'react-router-dom';
@@ -20,7 +19,6 @@ import Markdown from '../../components/markdown';
 import RelativeTime from '../../components/relative-time';
 import TagChips from '../../components/tag-chips';
 import UserBrief from '../../components/user-brief';
-import Comment from '../../types/models/Comment';
 import Post from '../../types/models/Post';
 import User from '../../types/models/User';
 import isElementInViewport from '../../utils/isElementInViewport';
@@ -33,38 +31,12 @@ export default function PostPage() {
   const requireAuth = useRequireAuth();
   const { postId, tagId } = useParams();
   const navigate = useNavigate();
-  const commentFormContainerRef = useRef<HTMLElement>(null);
 
   const {
     data: post,
     remove: removePost,
     loading: postLoading,
   } = useFetch<Post>(`/posts/${postId}`);
-
-  const [newComments, setNewComments] = useState<Comment[]>([]);
-  const [commentOrder, setCommentOrder] = useState('like');
-
-  useEffect(() => {
-    if (post?.comments) {
-      setNewComments(post.comments);
-    }
-  }, [post?.comments]);
-
-  const createComment = useCallback(
-    (comment: Comment) => setNewComments((prev) => [comment, ...prev]),
-    []
-  );
-
-  const updateComment = useCallback(
-    (comment: Comment) =>
-      setNewComments((prev) => prev.map((item) => (item.id === comment.id ? comment : item))),
-    []
-  );
-
-  const deleteComment = useCallback(
-    (comment: Comment) => setNewComments((prev) => prev.filter((item) => item.id !== comment.id)),
-    []
-  );
 
   if (!post || postLoading) {
     return (
@@ -124,10 +96,11 @@ export default function PostPage() {
               startIcon={<Reply />}
               onClick={() => {
                 if (requireAuth()) {
-                  if (commentFormContainerRef.current) {
-                    commentFormContainerRef.current.querySelector('textarea')?.focus();
-                    if (!isElementInViewport(commentFormContainerRef.current)) {
-                      commentFormContainerRef.current.scrollIntoView(false);
+                  const textarea = document.querySelector<HTMLElement>('#new-comment textarea');
+                  if (textarea) {
+                    textarea.focus();
+                    if (!isElementInViewport(textarea)) {
+                      textarea.scrollIntoView(false);
                     }
                   }
                 }

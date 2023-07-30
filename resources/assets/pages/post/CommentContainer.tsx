@@ -46,7 +46,7 @@ export default function CommentContainer() {
   return (
     <Box>
       <Box
-        ref={commentFormContainerRef}
+        id="new-comment"
         onClick={() => {
           requireAuth();
         }}
