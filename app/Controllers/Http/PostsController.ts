@@ -6,6 +6,7 @@ export default class PostsController {
   public async index({ auth, request }: HttpContextContract) {
     const {
       userId,
+      username,
       tagId,
       tagSlug,
       search,
@@ -17,6 +18,12 @@ export default class PostsController {
           rules.exists({
             table: 'users',
             column: 'id',
+          }),
+        ]),
+        username: schema.string.optional([
+          rules.exists({
+            table: 'users',
+            column: 'username',
           }),
         ]),
         tagId: schema.number.optional([
@@ -66,6 +73,12 @@ export default class PostsController {
 
     if (userId) {
       query.where('userId', userId);
+    }
+
+    if (username) {
+      query.whereHas('user', (q) => {
+        q.where('username', username);
+      });
     }
 
     if (tagId) {

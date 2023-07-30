@@ -1,8 +1,8 @@
 import { useRequireAuth } from '@guoyunhe/react-auth';
 import { Comment as CommentIcon } from '@mui/icons-material';
 import { Box, Button, Card, CardActions, CardContent, CardHeader, SxProps } from '@mui/material';
-import { blue } from '@mui/material/colors';
 import axios from 'axios';
+import { useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Liker from '../../components/liker';
 import RelativeTime from '../../components/relative-time';
@@ -18,18 +18,31 @@ export interface PostCardProps {
 export default function PostCard({ post, excerptLength = 255, sx }: PostCardProps) {
   const requireAuth = useRequireAuth();
 
-  const { tagId, postId, search } = useParams();
+  const { userId, tagId, postId, search } = useParams();
+
+  const path = useMemo(() => {
+    if (userId) {
+      return `/u/${userId}/p/${post.id}`;
+    } else if (tagId) {
+      return `/t/${tagId}/p/${post.id}`;
+    } else if (search) {
+      return `/s/${search}/p/${post.id}`;
+    } else {
+      return `/p/${post.id}`;
+    }
+  }, [userId, tagId, search, post.id]);
 
   return (
     <Card
       variant="outlined"
       component={Link}
-      to={`${tagId ? `/t/${tagId}` : ''}${search ? `/s/${search}` : ''}/p/${post.id}`}
+      to={path}
       sx={{
         display: 'flex',
         overflow: 'hidden',
         textDecoration: 'none',
-        borderColor: postId === post.id.toString() ? blue[400] : undefined,
+        borderColor: (theme) =>
+          postId === post.id.toString() ? theme.palette.primary.main : undefined,
         ...sx,
       }}
     >

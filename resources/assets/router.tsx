@@ -4,7 +4,6 @@ import { RouteObject, createBrowserRouter } from 'react-router-dom';
 import NotificationsPage from './pages/notifications';
 import PostPage from './pages/post';
 import PostListPage from './pages/post-list';
-import ProfilePage from './pages/profile';
 import SubmitPage from './pages/submit';
 
 // layouts
@@ -98,7 +97,13 @@ const routes: RouteObject[] = [
       },
       {
         path: 'u/:userId',
-        element: <ProfilePage />,
+        element: <PostListPage />,
+        children: [
+          {
+            path: 'p/:postId',
+            element: <PostPage />,
+          },
+        ],
       },
       {
         path: 'notifications',

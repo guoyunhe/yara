@@ -5,9 +5,10 @@ import { useParams } from 'react-router-dom';
 import Paginated from '../../types/Paginated';
 import Post from '../../types/models/Post';
 import PostCard from './PostCard';
+import ProfileHeader from './ProfileHeader';
 
 export default function PostList() {
-  const { tagId, postId, search } = useParams();
+  const { userId, tagId, postId, search } = useParams();
   const [page, setPage] = useState(1);
 
   const prevPostIdRef = useRef(postId);
@@ -16,6 +17,9 @@ export default function PostList() {
   apiSearchParams.set('page', String(page));
   if (tagId) {
     apiSearchParams.set(Number.isInteger(Number(tagId)) ? `tagId` : `tagSlug`, tagId);
+  }
+  if (userId) {
+    apiSearchParams.set(Number.isInteger(Number(userId)) ? `userId` : `username`, userId);
   }
   if (search) {
     apiSearchParams.set('search', search);
@@ -41,6 +45,7 @@ export default function PostList() {
       }}
     >
       <Box sx={{ maxWidth: 632, mx: 'auto', p: { xs: 0, md: 2 } }}>
+        {userId && <ProfileHeader />}
         {posts?.data.map((post) => (
           <PostCard key={post.id} post={post} sx={{ mb: 2 }} />
         ))}
