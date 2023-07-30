@@ -2,7 +2,7 @@ import { useLogout } from '@guoyunhe/react-auth';
 import { Logout as LogoutIcon } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
 
-export default function LogoutButton() {
+export default function LogoutIconButton() {
   const logout = useLogout();
 
   return (

@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 import LanguageMenu from '../../components/language-menu';
 import User from '../../types/models/User';
 import CreatePostButton from './CreatePostButton';
-import LogoutButton from './LogoutButton';
+import LogoutIconButton from './LogoutIconButton';
 import NotificationIconButton from './NotificationIconButton';
 import SearchBox from './SearchBox';
 
@@ -72,7 +72,7 @@ export default function TopNav({ onMenuButtonClick }: TopNavProps) {
             >
               <SettingsIcon />
             </IconButton>
-            <LogoutButton />
+            <LogoutIconButton />
           </Stack>
         ) : (
           <Stack direction="row">
