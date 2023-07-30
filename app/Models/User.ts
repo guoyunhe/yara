@@ -19,9 +19,6 @@ export default class User extends Model {
   public avatarId: number | null;
 
   @column()
-  public name: string;
-
-  @column()
   public username: string;
 
   @column()

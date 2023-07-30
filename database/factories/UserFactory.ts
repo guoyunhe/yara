@@ -5,7 +5,6 @@ import { PostFactory } from './PostFactory';
 
 export const UserFactory = Factory.define(User, ({ faker }) => {
   return {
-    name: faker.internet.displayName(),
     username: faker.internet.userName().toLocaleLowerCase(),
     description: faker.lorem.paragraphs({ min: 1, max: 5 }, '\n\n'),
     email: faker.internet.email(),
