@@ -128,16 +128,7 @@ export default class PostsController {
       .preload('tags', (q) => {
         q.preload('icon');
       })
-      .preload('comments', (q) => {
-        q.preload('user').withAggregate('likes', (q2) => {
-          q2.sum('like').as('likes_sum');
-        });
-        if (auth.user) {
-          q.preload('likes', (q2) => {
-            q2.where('userId', auth.user!.id);
-          });
-        }
-      })
+      .withCount('comments')
       .withAggregate('likes', (q) => {
         q.sum('like').as('likes_sum');
       });
