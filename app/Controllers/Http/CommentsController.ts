@@ -5,6 +5,13 @@ import Notification from 'App/Models/Notification';
 import Post from 'App/Models/Post';
 
 export default class CommentsController {
+  public async index({ request }: HttpContextContract) {
+    const comments = await Comment.query()
+      .preload('user', (q) => q.preload('avatar'))
+      .where('postId', request.param('post_id'));
+    return comments;
+  }
+
   public async store({ auth, request, response }: HttpContextContract) {
     const post = await Post.find(request.param('post_id'));
 

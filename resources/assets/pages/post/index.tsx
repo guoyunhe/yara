@@ -5,11 +5,7 @@ import {
   Button,
   CircularProgress,
   Divider,
-  FormControl,
   IconButton,
-  InputLabel,
-  MenuItem,
-  Select,
   Stack,
   Typography,
 } from '@mui/material';
@@ -28,8 +24,7 @@ import Comment from '../../types/models/Comment';
 import Post from '../../types/models/Post';
 import User from '../../types/models/User';
 import isElementInViewport from '../../utils/isElementInViewport';
-import CommentForm from './CommentForm';
-import CommentList from './CommentList';
+import CommentContainer from './CommentContainer';
 import PostShareButton from './PostShareButton';
 
 export default function PostPage() {
@@ -94,6 +89,7 @@ export default function PostPage() {
       >
         <Close />
       </IconButton>
+
       <Box component="header" sx={{ display: 'flex' }}>
         <Box sx={{ flex: '0 0 auto' }}>
           <Liker
@@ -155,60 +151,10 @@ export default function PostPage() {
               />
             )}
           </Stack>
-          <Divider sx={{ mt: 1, mb: 3 }} />
-          <Box
-            ref={commentFormContainerRef}
-            onClick={() => {
-              requireAuth();
-            }}
-          >
-            <CommentForm
-              postId={post.id}
-              onCreate={(comment) => {
-                setNewComments((prev) => [comment, ...prev]);
-              }}
-              sx={{ mb: 3 }}
-            />
-          </Box>
         </Box>
       </Box>
 
-      <Stack direction="row" sx={{ pl: 5, mb: 3 }}>
-        <FormControl>
-          <InputLabel>{t('Sort')}</InputLabel>
-          <Select
-            label={t('Sort')}
-            value={commentOrder}
-            onChange={(e) => setCommentOrder(e.target.value)}
-          >
-            <MenuItem value="like">{t('Most liked')}</MenuItem>
-            <MenuItem value="new">{t('Newest')}</MenuItem>
-            <MenuItem value="old">{t('Oldest')}</MenuItem>
-          </Select>
-        </FormControl>
-      </Stack>
-      <CommentList
-        comments={newComments
-          .map((item) => item)
-          .sort((a, b) => {
-            if (user?.id) {
-              if (a.userId === user.id && b.userId !== user.id) return -Infinity;
-              if (b.userId === user.id && a.userId !== user.id) return Infinity;
-            }
-            switch (commentOrder) {
-              case 'new':
-                return b.createdAt.localeCompare(a.createdAt);
-              case 'old':
-                return a.createdAt.localeCompare(b.createdAt);
-              default:
-                return b.likesSum - a.likesSum;
-            }
-          })}
-        parentId={null}
-        onCreate={createComment}
-        onDelete={deleteComment}
-        onUpdate={updateComment}
-      />
+      <CommentContainer />
     </Box>
   );
 }
