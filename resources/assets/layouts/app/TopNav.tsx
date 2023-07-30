@@ -13,7 +13,7 @@ import LanguageMenu from '../../components/language-menu';
 import User from '../../types/models/User';
 import CreatePostButton from './CreatePostButton';
 import LogoutButton from './LogoutButton';
-import NotificationButton from './NotificationButton';
+import NotificationIconButton from './NotificationIconButton';
 import SearchBox from './SearchBox';
 
 export interface TopNavProps {
@@ -63,7 +63,7 @@ export default function TopNav({ onMenuButtonClick }: TopNavProps) {
             </Button>
             <PaletteModeIconButton />
             <LanguageMenu />
-            <NotificationButton />
+            <NotificationIconButton />
             <IconButton
               color="inherit"
               component={Link}
