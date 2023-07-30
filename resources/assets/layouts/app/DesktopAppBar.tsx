@@ -10,10 +10,10 @@ import { PaletteModeIconButton } from 'mui-palette-mode';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import LanguageMenu from '../../components/language-menu';
+import NotificationIconButton from '../../components/notification-icon-button';
 import User from '../../types/models/User';
 import CreatePostButton from './CreatePostButton';
 import LogoutIconButton from './LogoutIconButton';
-import NotificationIconButton from './NotificationIconButton';
 import SearchBox from './SearchBox';
 
 export default function DesktopAppBar() {
@@ -21,7 +21,7 @@ export default function DesktopAppBar() {
   const auth = useAuth<User>();
 
   return (
-    <AppBar position="static" color="transparent" sx={{ zIndex: 1 }}>
+    <AppBar position="static" color="inherit" sx={{ zIndex: 1 }}>
       <Toolbar>
         <IconButton
           color="inherit"

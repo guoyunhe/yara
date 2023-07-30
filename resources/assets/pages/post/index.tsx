@@ -1,13 +1,14 @@
 import { AuthStatus, useAuth, useRequireAuth } from '@guoyunhe/react-auth';
-import { Close, Edit, Reply } from '@mui/icons-material';
+import { Edit, Reply } from '@mui/icons-material';
 import {
   Box,
   Button,
   CircularProgress,
   Divider,
-  IconButton,
   Stack,
+  Theme,
   Typography,
+  useMediaQuery,
 } from '@mui/material';
 import axios from 'axios';
 import { useFetch } from 'react-fast-fetch';
@@ -23,9 +24,11 @@ import Post from '../../types/models/Post';
 import User from '../../types/models/User';
 import isElementInViewport from '../../utils/isElementInViewport';
 import CommentContainer from './CommentContainer';
+import MobileAppBar from './MobileAppBar';
 import PostShareButton from './PostShareButton';
 
 export default function PostPage() {
+  const isMobile = useMediaQuery<Theme>((theme) => theme.breakpoints.down('md'));
   const { t } = useTranslation();
   const { user, status } = useAuth<User>();
   const requireAuth = useRequireAuth();
@@ -54,14 +57,7 @@ export default function PostPage() {
 
   return (
     <Box component="article" sx={{ flex: '6 6 60%', overflow: 'auto' }}>
-      <IconButton
-        component={Link}
-        to={tagId ? `/t/${tagId}` : `/`}
-        sx={{ display: { xs: 'inline-block', md: 'none' } }}
-      >
-        <Close />
-      </IconButton>
-
+      {isMobile && <MobileAppBar />}
       <Box component="header" sx={{ display: 'flex' }}>
         <Box sx={{ flex: '0 0 auto' }}>
           <Liker
