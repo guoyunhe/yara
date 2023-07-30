@@ -104,10 +104,7 @@ export default function ProfileHeader() {
               onChange={(e) => setUsername(e.target.value)}
             />
           ) : (
-            <Typography
-              variant="h3"
-              sx={{ overflow: 'hidden', textOverflow: 'ellipsis', opacity: 0.5 }}
-            >
+            <Typography variant="h3" sx={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>
               {username}
             </Typography>
           )}
