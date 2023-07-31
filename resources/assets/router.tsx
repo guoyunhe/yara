@@ -6,6 +6,7 @@ import NotificationsPage from './pages/notifications';
 import PostPage from './pages/post';
 import PostListPage from './pages/post-list';
 import SubmitPage from './pages/submit';
+import UserPage from './pages/user';
 
 // layouts
 const AppLayout = lazy(() => import('./layouts/app'));
@@ -98,7 +99,7 @@ const routes: RouteObject[] = [
       },
       {
         path: 'u/:userId',
-        element: <PostListPage />,
+        element: <UserPage />,
         children: [
           {
             path: 'p/:postId',
