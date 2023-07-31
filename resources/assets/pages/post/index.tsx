@@ -116,6 +116,7 @@ export default function PostPage() {
                 onSucceed={() => {
                   navigate('/');
                   removePost();
+                  window.dispatchEvent(new Event('post-list-reload'));
                 }}
               />
             )}
