@@ -32,7 +32,7 @@ export default function PostPage() {
   const { t } = useTranslation();
   const { user, status } = useAuth<User>();
   const requireAuth = useRequireAuth();
-  const { postId, tagId } = useParams();
+  const { postId } = useParams();
   const navigate = useNavigate();
 
   const {
