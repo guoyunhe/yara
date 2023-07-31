@@ -4,10 +4,10 @@ import { Box, Button, Card, CardActions, CardContent, CardHeader, SxProps } from
 import axios from 'axios';
 import { useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import Liker from '../../components/liker';
-import RelativeTime from '../../components/relative-time';
-import UserBrief from '../../components/user-brief';
 import Post from '../../types/models/Post';
+import Liker from '../liker';
+import RelativeTime from '../relative-time';
+import UserBrief from '../user-brief';
 
 export interface PostCardProps {
   post: Post;

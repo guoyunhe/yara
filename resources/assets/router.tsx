@@ -1,6 +1,7 @@
 import { RequireAuth } from '@guoyunhe/react-auth';
 import { lazy } from 'react';
 import { RouteObject, createBrowserRouter } from 'react-router-dom';
+import HomePage from './pages/home';
 import NotificationsPage from './pages/notifications';
 import PostPage from './pages/post';
 import PostListPage from './pages/post-list';
@@ -35,7 +36,7 @@ const routes: RouteObject[] = [
     children: [
       {
         path: '/',
-        element: <PostListPage />,
+        element: <HomePage />,
         children: [
           {
             path: 'p/:postId',
