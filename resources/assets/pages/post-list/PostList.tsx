@@ -1,9 +1,8 @@
 import { Box } from '@mui/material';
 import { useParams } from 'react-router-dom';
-import UserHeader from './user/UserHeader';
 
 export default function PostList() {
-  const { userId, postId } = useParams();
+  const { postId } = useParams();
 
   return (
     <Box
@@ -15,7 +14,6 @@ export default function PostList() {
       }}
     >
       <Box sx={{ maxWidth: 632, mx: 'auto', p: { xs: 0, md: 2 } }}>
-        {userId && <UserHeader />}
         <PostList />
       </Box>
     </Box>
