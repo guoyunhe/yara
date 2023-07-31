@@ -28,7 +28,7 @@ export default function PostList({ sx }: PostListProps) {
   }
 
   const { data: posts, reload } = useFetch<Paginated<Post>>(`/posts?${apiSearchParams.toString()}`);
-  const totalPage = posts ? Math.ceil(posts.meta.total / posts.meta.perPage) : 1;
+  const totalPage = posts?.meta ? Math.ceil(posts.meta.total / posts.meta.perPage) : 1;
 
   useEffect(() => {
     window.addEventListener('post-list-reload', reload);
