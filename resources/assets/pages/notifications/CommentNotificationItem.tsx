@@ -76,8 +76,12 @@ export default function CommentNotificationItem({
               : t(`{{user}} replied your comment`, {
                   user: comment?.user?.username,
                 })}
-            <BlockQuote>{comment?.parent?.content || comment?.post?.title}</BlockQuote>
-            <Box>{comment?.content?.substring(0, 255)}</Box>
+            <BlockQuote sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+              {comment?.parent?.content.substring(0, 255) || comment?.post?.title}
+            </BlockQuote>
+            <Box sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+              {comment?.content?.substring(0, 255)}
+            </Box>
           </Box>
         }
         secondary={<RelativeTime date={notification.createdAt} />}
