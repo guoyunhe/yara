@@ -1,20 +1,16 @@
 import { MoreVert as MoreVertIcon } from '@mui/icons-material';
-import { AppBar, Avatar, Box, IconButton, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, IconButton, Toolbar, Typography } from '@mui/material';
 import { PaletteModeIconButton } from 'mui-palette-mode';
+import { useTranslation } from 'react-i18next';
 import BackIconButton from '../../components/back-icon-button';
-import Tag from '../../types/models/Tag';
 
-interface MobileAppBarProps {
-  tag?: Tag;
-}
-
-export default function MobileAppBar({ tag }: MobileAppBarProps) {
+export default function MobileAppBar() {
+  const { t } = useTranslation();
   return (
     <AppBar position="sticky" color="inherit" sx={{ zIndex: 1 }}>
       <Toolbar>
         <BackIconButton />
-        <Avatar src={tag?.icon?.url} sx={{ width: 24, height: 24, mr: 1 }} />
-        <Typography fontSize={20}>{tag?.name}</Typography>
+        <Typography fontSize={20}>{t('Notifications')}</Typography>
         <Box flex="1 1 auto" />
         <PaletteModeIconButton />
         <IconButton color="inherit" edge="end">

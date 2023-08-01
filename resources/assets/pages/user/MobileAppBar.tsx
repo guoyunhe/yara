@@ -17,7 +17,7 @@ export default function MobileAppBar({ user }: MobileAppBarProps) {
         <Typography fontSize={20}>{user.username}</Typography>
         <Box flex="1 1 auto" />
         <PaletteModeIconButton />
-        <IconButton color="inherit">
+        <IconButton color="inherit" edge="end">
           <MoreVertIcon />
         </IconButton>
       </Toolbar>
