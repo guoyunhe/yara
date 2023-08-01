@@ -7,7 +7,6 @@ export default function BackIconButton() {
 
   return (
     <IconButton
-      size="large"
       edge="start"
       color="inherit"
       onClick={() => {
