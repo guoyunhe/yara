@@ -6,6 +6,7 @@ import NotificationsPage from './pages/notifications';
 import PostPage from './pages/post';
 import PostListPage from './pages/post-list';
 import SubmitPage from './pages/submit';
+import TagPage from './pages/tag';
 import UserPage from './pages/user';
 
 // layouts
@@ -47,7 +48,7 @@ const routes: RouteObject[] = [
       },
       {
         path: 't/:tagId',
-        element: <PostListPage />,
+        element: <TagPage />,
         children: [
           {
             path: 'p/:postId',
