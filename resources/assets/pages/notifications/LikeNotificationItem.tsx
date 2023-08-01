@@ -97,7 +97,9 @@ export default function LikeNotificationItem({ notification, sx }: LikeNotificat
                     })}
               </>
             )}
-            <BlockQuote>{comment?.content || post?.title}</BlockQuote>
+            <BlockQuote sx={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+              {comment?.content.substring(0, 255) || post?.title}
+            </BlockQuote>
           </Box>
         }
         secondary={<RelativeTime date={notification.createdAt} />}

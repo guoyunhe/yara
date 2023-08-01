@@ -13,7 +13,7 @@ export default function NotificationsPage() {
   return (
     <>
       {isMobile && <MobileAppBar />}
-      <Container maxWidth="sm" sx={{ px: { xs: 0, sm: 3 } }}>
+      <Container maxWidth="md" sx={{ px: { xs: 0, sm: 3 } }}>
         <List>
           {data?.data.map((item) => (
             <NotificationItem
