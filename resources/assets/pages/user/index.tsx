@@ -1,10 +1,10 @@
 import { Box } from '@mui/material';
 import { Outlet, useParams } from 'react-router-dom';
 import PostList from '../../components/post-list';
-import UserHeader from './Header';
+import Header from './Header';
 
 export default function UserPage() {
-  const { userId, postId } = useParams();
+  const { postId } = useParams();
 
   return (
     <Box sx={{ display: 'flex', flex: '1 1 auto', overflow: 'hidden' }}>
@@ -17,7 +17,7 @@ export default function UserPage() {
         }}
       >
         <Box sx={{ maxWidth: 632, mx: 'auto', p: { xs: 0, md: 2 } }}>
-          <UserHeader />
+          <Header />
           <PostList />
         </Box>
       </Box>

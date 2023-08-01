@@ -30,7 +30,7 @@ import Tag from '../../types/models/Tag';
 import User from '../../types/models/User';
 import MobileAppBar from './MobileAppBar';
 
-export default function UserHeader() {
+export default function Header() {
   const isMobile = useMediaQuery<Theme>((theme) => theme.breakpoints.down('md'));
   const { t } = useTranslation();
   const { userId } = useParams();
