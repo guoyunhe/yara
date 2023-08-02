@@ -8,6 +8,7 @@ export const PostFactory = Factory.define(Post, async ({ faker }) => {
   return {
     title: faker.lorem.sentence(),
     content: faker.lorem.paragraphs({ min: 1, max: 5 }, '\n\n'),
+    views: faker.number.int({ min: 0, max: 999 }),
   };
 })
   .relation('comments', () => CommentFactory)

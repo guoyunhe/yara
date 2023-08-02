@@ -145,6 +145,8 @@ export default class PostsController {
       return response.notFound();
     }
 
+    await Post.query().where('id', request.param('id')).increment({ views: 1 });
+
     return post;
   }
 

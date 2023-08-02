@@ -1,5 +1,5 @@
 import { AuthStatus, useAuth, useRequireAuth } from '@guoyunhe/react-auth';
-import { Edit, Reply } from '@mui/icons-material';
+import { Edit, Reply, Visibility } from '@mui/icons-material';
 import {
   Box,
   Button,
@@ -85,6 +85,10 @@ export default function PostPage() {
           </Stack>
 
           <Markdown>{post.content}</Markdown>
+
+          <Stack>
+            <Visibility /> {post.views}
+          </Stack>
 
           <Divider sx={{ mt: 3, mb: 1 }} />
           <Stack direction="row">

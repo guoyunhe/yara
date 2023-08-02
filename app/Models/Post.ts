@@ -24,6 +24,9 @@ export default class Post extends Model {
   @column()
   public content: string;
 
+  @column()
+  public views: number;
+
   @belongsTo(() => User)
   public user: BelongsTo<typeof User>;
 

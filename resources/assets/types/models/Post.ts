@@ -7,6 +7,7 @@ import User from './User';
 export default interface Post extends Model {
   title: string;
   content: string;
+  views: number;
   userId: number;
   user: User;
   tags: Tag[];
