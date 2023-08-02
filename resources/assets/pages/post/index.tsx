@@ -1,5 +1,11 @@
 import { AuthStatus, useAuth, useRequireAuth } from '@guoyunhe/react-auth';
-import { Edit, Reply, Visibility } from '@mui/icons-material';
+import {
+  Edit,
+  Message as MessageIcon,
+  Reply,
+  ThumbUp,
+  Visibility as VisibilityIcon,
+} from '@mui/icons-material';
 import {
   Box,
   Button,
@@ -86,8 +92,16 @@ export default function PostPage() {
 
           <Markdown>{post.content}</Markdown>
 
-          <Stack>
-            <Visibility /> {post.views}
+          <Stack direction="row">
+            <Button color="inherit" startIcon={<ThumbUp />}>
+              {post.likesSum}
+            </Button>
+            <Button color="inherit" startIcon={<MessageIcon />}>
+              {post.commentsCount}
+            </Button>
+            <Button color="inherit" startIcon={<VisibilityIcon />}>
+              {post.views}
+            </Button>
           </Stack>
 
           <Divider sx={{ mt: 3, mb: 1 }} />
