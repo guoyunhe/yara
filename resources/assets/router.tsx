@@ -4,7 +4,7 @@ import { RouteObject, createBrowserRouter } from 'react-router-dom';
 import HomePage from './pages/home';
 import NotificationsPage from './pages/notifications';
 import PostPage from './pages/post';
-import PostListPage from './pages/post-list';
+import SearchPage from './pages/search';
 import SubmitPage from './pages/submit';
 import TagPage from './pages/tag';
 import UserPage from './pages/user';
@@ -57,8 +57,8 @@ const routes: RouteObject[] = [
         ],
       },
       {
-        path: 's/:search',
-        element: <PostListPage />,
+        path: 's/:search?',
+        element: <SearchPage />,
         children: [
           {
             path: 'p/:postId',
